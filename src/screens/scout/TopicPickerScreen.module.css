@@ -1,0 +1,233 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #0D1B2E;
+  min-height: 100%;
+  color: white;
+}
+
+.statusBar { height: 44px; background: #0D1B2E; }
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px 12px;
+}
+
+.backBtn {
+  background: rgba(255, 255, 255, 0.07);
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.backBtn:active { background: rgba(255, 255, 255, 0.15); }
+
+.scoutBadge {
+  flex: 1;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: #5BA3F5;
+  letter-spacing: 1.5px;
+}
+
+.headerRight { width: 38px; }
+
+/* Titles */
+.titleBlock { padding: 4px 24px 20px; }
+
+.title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 6px;
+  letter-spacing: -0.4px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #7A90B0;
+  line-height: 1.5;
+}
+
+/* Scrollable area — contains title + grid; grows to fill available space */
+.scrollable {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 8px;
+}
+
+/* Category grid — auto-fills 2 columns, wraps gracefully for any count */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 0 20px;
+  margin-bottom: 16px;
+}
+
+.card {
+  background: #172336;
+  border: 1.5px solid #1E3A5F;
+  border-radius: 16px;
+  padding: 18px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  position: relative;
+  text-align: left;
+}
+
+.card:active { transform: scale(0.95); }
+
+.cardSelected {
+  border-color: #0071C2;
+  background: #0E2A48;
+  box-shadow: 0 0 0 2px rgba(0, 113, 194, 0.3);
+}
+
+.selectionBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  background: #0071C2;
+  border-radius: 50%;
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardIcon { font-size: 28px; margin-bottom: 2px; }
+
+.cardLabel {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Gap reason badge — color driven by data-status attribute, no JS needed */
+.cardGapLabel {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 20px;
+  /* Default (fallback) */
+  color: #5BA3F5;
+  background: rgba(91, 163, 245, 0.1);
+  border: 1px solid rgba(91, 163, 245, 0.2);
+}
+
+/* Red — data is entirely absent */
+.cardGapLabel[data-status="missing"] {
+  color: #F87171;
+  background: rgba(248, 113, 113, 0.1);
+  border-color: rgba(248, 113, 113, 0.25);
+}
+
+/* Orange — data exists but is stale or contradictory */
+.cardGapLabel[data-status="stale"],
+.cardGapLabel[data-status="conflicting"] {
+  color: #FB923C;
+  background: rgba(251, 146, 60, 0.1);
+  border-color: rgba(251, 146, 60, 0.25);
+}
+
+/* Rewards banner */
+.rewardsBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 20px 16px;
+  background: rgba(245, 166, 35, 0.08);
+  border: 1px solid rgba(245, 166, 35, 0.25);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.rewardsText {
+  font-size: 13px;
+  font-weight: 600;
+  color: #F5A623;
+}
+
+/* Footer */
+.footer {
+  padding: 8px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.continueBtn {
+  width: 100%;
+  background: #0071C2;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 16px 24px;
+  border-radius: 14px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(0, 113, 194, 0.4);
+  font-family: inherit;
+}
+
+.continueBtn:disabled {
+  background: #1E3A5F;
+  box-shadow: none;
+  cursor: not-allowed;
+  color: #4A6080;
+}
+
+.continueBtn:not(:disabled):active {
+  background: #005EA2;
+  transform: scale(0.98);
+}
+
+.continueBadge {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 2px 8px;
+}
+
+.skipBtn {
+  background: none;
+  border: none;
+  color: #4A6080;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: center;
+  transition: color 0.15s;
+}
+
+.skipBtn:active { color: #7A90B0; }

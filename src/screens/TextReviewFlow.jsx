@@ -1,152 +1,102 @@
 import { useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { addPoints } from '../utils/points'
 import styles from './TextReviewFlow.module.css'
 
-const QUESTIONS = [
-  {
-    id: 'cleanliness',
-    emoji: '🛏️',
-    category: 'Cleanliness',
-    question: 'How clean was your room and the hotel overall?',
-    placeholder: 'e.g. The room was spotless, towels were fresh daily...',
-  },
-  {
-    id: 'service',
-    emoji: '🤝',
-    category: 'Service',
-    question: 'How would you rate the staff and service quality?',
-    placeholder: 'e.g. Concierge was incredibly helpful with restaurant recommendations...',
-  },
-]
+const HOTEL = { name: 'Art Deco Hotel', location: 'Frisco, TX' }
 
 export default function TextReviewFlow() {
   const navigate = useNavigate()
-  const location = useLocation()
-  const state = location.state || {}
+  const [reviewText, setReviewText] = useState('')
 
-  const [step, setStep] = useState(0)
-  const [answers, setAnswers] = useState({})
-  const [submitted, setSubmitted] = useState(false)
-
-  const currentQ = QUESTIONS[step]
-  const currentAnswer = answers[currentQ?.id] || ''
-  const progress = ((step) / QUESTIONS.length) * 100
-  const totalPts = step * 50
-
-  function handleNext() {
-    if (step < QUESTIONS.length - 1) {
-      setStep(s => s + 1)
-    } else {
-      setSubmitted(true)
-    }
-  }
-
-  function handleAnswerChange(val) {
-    setAnswers(prev => ({ ...prev, [currentQ.id]: val }))
-  }
-
-  if (submitted) {
-    return <SuccessScreen navigate={navigate} ptsEarned={QUESTIONS.length * 50 + (state.rating ? 50 : 0)} />
+  function handleSubmit() {
+    addPoints(100)
+    navigate('/review/text/points', { state: { reviewText } })
   }
 
   return (
     <div className={styles.screen}>
       <div className={styles.statusBar} />
 
-      {/* Header */}
       <header className={styles.header}>
-        <button className={styles.backBtn} onClick={() => step === 0 ? navigate(-1) : setStep(s => s - 1)} aria-label="Back">
+        <button className={styles.backBtn} onClick={() => navigate(-1)} aria-label="Go back">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <path d="M14 17L8 11L14 5" stroke="#1668F5" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M14 17L8 11L14 5" stroke="#0071C2" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
-        <div className={styles.headerCenter}>
-          <span className={styles.headerStep}>Question {step + 1} of {QUESTIONS.length}</span>
-          <div className={styles.progressBar}>
-            <div className={styles.progressFill} style={{ width: `${((step + 1) / QUESTIONS.length) * 100}%` }} />
-          </div>
-        </div>
-        <div className={styles.headerPts}>
-          <span className={styles.ptsValue}>+{totalPts}</span>
-          <span className={styles.ptsUnit}>pts</span>
-        </div>
+        <h2 className={styles.headerTitle}>Write a Review</h2>
+        <div className={styles.headerRight} />
       </header>
 
-      <div className={styles.content}>
-        {/* Category tag */}
-        <div className={styles.categoryTag}>
-          <span>{currentQ.emoji}</span>
-          <span>{currentQ.category}</span>
-        </div>
-
-        {/* Question */}
-        <h2 className={styles.question}>{currentQ.question}</h2>
-
-        {/* Answer input */}
-        <textarea
-          className={styles.textarea}
-          placeholder={currentQ.placeholder}
-          value={currentAnswer}
-          onChange={(e) => handleAnswerChange(e.target.value)}
-          rows={5}
-          autoFocus
-        />
-        <div className={styles.charCount}>{currentAnswer.length} / 300</div>
-
-        {/* Skip */}
-        <button className={styles.skipBtn} onClick={handleNext}>
-          Skip this question
-        </button>
+      {/* Native rewards banner — feels like a built-in Expedia feature */}
+      <div className={styles.rewardsBanner}>
+        <span className={styles.rewardsMedal}>🏅</span>
+        <span className={styles.rewardsText}>
+          Earn <strong>100 pts</strong> just for submitting your review
+        </span>
       </div>
 
-      {/* Bottom CTA */}
-      <div className={styles.footer}>
-        <div className={styles.footerPtsHint}>
-          {currentAnswer.length >= 20
-            ? <span className={styles.ptsEarn}>🏅 +50 pts will be added for this answer</span>
-            : <span className={styles.ptsHint}>Write at least 20 characters to earn +50 pts</span>
-          }
+      <div className={styles.scrollable}>
+        {/* Hotel chip */}
+        <div className={styles.hotelChip}>
+          <span className={styles.hotelChipIcon}>🏨</span>
+          <div className={styles.hotelChipInfo}>
+            <span className={styles.hotelName}>{HOTEL.name}</span>
+            <span className={styles.hotelLocation}>{HOTEL.location}</span>
+          </div>
         </div>
+
+        {/* Review input */}
+        <div className={styles.inputSection}>
+          <label className={styles.inputLabel} htmlFor="review">
+            Share your experience
+          </label>
+          <textarea
+            id="review"
+            className={styles.textarea}
+            placeholder="What made your stay memorable? How was the service, room, or amenities?"
+            value={reviewText}
+            onChange={e => setReviewText(e.target.value)}
+            rows={6}
+            maxLength={600}
+            autoFocus
+          />
+          <div className={styles.charCount}>{reviewText.length} / 600</div>
+        </div>
+
+        {/* Scout game teaser — exciting, clearly optional */}
+        <div className={styles.scoutTeaser}>
+          <div className={styles.scoutTeaserTop}>
+            <div className={styles.scoutBadge}>
+              <span className={styles.scoutDot}>●</span> SCOUT
+            </div>
+            <span className={styles.scoutPtsChip}>+50 pts per topic</span>
+          </div>
+          <h3 className={styles.scoutTeaserTitle}>Want to earn even more?</h3>
+          <p className={styles.scoutTeaserDesc}>
+            After submitting, play a quick game to fill gaps other travelers are wondering about — pool hours, shuttle, pet policy, and more.
+          </p>
+          <div className={styles.scoutTopicPills}>
+            <span className={styles.topicPill}>🏊 Pool</span>
+            <span className={styles.topicPill}>🚌 Shuttle</span>
+            <span className={styles.topicPill}>🐾 Pet Policy</span>
+            <span className={styles.topicPill}>🅿️ Parking</span>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.footer}>
         <button
-          className={styles.nextBtn}
-          onClick={handleNext}
-          disabled={currentAnswer.length === 0}
+          className={styles.submitBtn}
+          onClick={handleSubmit}
+          disabled={reviewText.trim().length === 0}
         >
-          {step < QUESTIONS.length - 1 ? 'Next Question' : 'Submit Review'}
+          Submit Review
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <path d="M3.75 9H14.25M14.25 9L9.75 4.5M14.25 9L9.75 13.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
-      </div>
-    </div>
-  )
-}
-
-function SuccessScreen({ navigate, ptsEarned }) {
-  return (
-    <div className={styles.successScreen}>
-      <div className={styles.statusBar} />
-      <div className={styles.successContent}>
-        <div className={styles.successIcon}>🎉</div>
-        <h2 className={styles.successTitle}>Review Submitted!</h2>
-        <p className={styles.successSub}>Thank you for helping fellow travelers</p>
-
-        <div className={styles.ptsCard}>
-          <div className={styles.ptsCardIcon}>🏅</div>
-          <div>
-            <div className={styles.ptsCardLabel}>Points earned</div>
-            <div className={styles.ptsCardValue}>+{ptsEarned} pts</div>
-          </div>
-        </div>
-
-        <div className={styles.successActions}>
-          <button className={styles.primaryBtn} onClick={() => navigate('/')}>
-            Back to Home
-          </button>
-          <button className={styles.secondaryBtn} onClick={() => navigate('/dashboard')}>
-            View My Points
-          </button>
-        </div>
+        <p className={styles.footerNote}>🔒 Your review is shared publicly on Expedia</p>
       </div>
     </div>
   )
