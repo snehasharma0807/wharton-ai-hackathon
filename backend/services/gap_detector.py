@@ -134,6 +134,7 @@ def detect_gaps(
     reviews_df: pd.DataFrame,
     top_n: int = 4,
     entropy_scores_override: dict[str, float] | None = None,
+    dynamic_categories: list[dict] | None = None,
 ) -> list[dict]:
     """
     Returns up to *top_n* gap categories for the given property, sorted by
@@ -142,32 +143,47 @@ def detect_gaps(
     Each item:
       {id, topic, icon, urgency, question, answerOptions, score}
 
-    Pass *entropy_scores_override* to supply pre-computed (e.g. OpenAI-derived)
-    entropy scores and skip the synchronous keyword-matching path.
+    If *dynamic_categories* is supplied (from category_discovery.discover_categories),
+    those are used instead of the hardcoded GAP_CATEGORIES. Dynamic categories carry
+    a `sparsity_hint` field (0–1) that replaces the DB field-sparsity check:
+      - Cluster-based categories: 1 - (cluster_size / total_reviews)
+      - Property-specific categories: 0.9 (property advertises it, reviews don't cover it)
+
+    Pass *entropy_scores_override* to supply pre-computed entropy scores and
+    skip the synchronous keyword-matching path.
     """
     pid = str(property_id)
 
-    # Locate the property row in descriptions
+    # --- Choose category set ---
+    if dynamic_categories:
+        categories = {c["id"]: c for c in dynamic_categories}
+    else:
+        categories = GAP_CATEGORIES
+
+    # Locate the property row in descriptions (only needed for hardcoded field sparsity)
     id_col = next((c for c in descriptions_df.columns if "property_id" in c.lower() or c.lower() in ("id", "eg_property_id")), None)
     desc_matches = descriptions_df[descriptions_df[id_col].astype(str) == pid] if id_col else descriptions_df.iloc[0:0]
-    if desc_matches.empty:
-        property_row = pd.Series(dtype=object)
-    else:
-        property_row = desc_matches.iloc[0]
+    property_row = desc_matches.iloc[0] if not desc_matches.empty else pd.Series(dtype=object)
 
     # Use caller-supplied scores or fall back to synchronous keyword matching
     entropy_scores = entropy_scores_override or compute_entropy_scores(property_id, reviews_df)
 
+    n_cats = len(categories)
     results = []
-    for category, meta in GAP_CATEGORIES.items():
-        sparsity = _field_sparsity(property_row, meta["fields"])
-        entropy  = entropy_scores.get(category, 1.0 / len(GAP_CATEGORIES))
-        score    = round(0.4 * sparsity + 0.6 * entropy, 4)
+    for cat_id, meta in categories.items():
+        # Sparsity: use hint from dynamic discovery, else check DB fields
+        if "sparsity_hint" in meta:
+            sparsity = meta["sparsity_hint"]
+        else:
+            sparsity = _field_sparsity(property_row, meta.get("fields", []))
+
+        entropy = entropy_scores.get(cat_id, 1.0 / n_cats)
+        score   = round(0.4 * sparsity + 0.6 * entropy, 4)
 
         results.append({
-            "id":            category,
-            "topic":         category.replace("_", " ").title(),
-            "icon":          meta["icon"],
+            "id":            cat_id,
+            "topic":         meta.get("topic") or cat_id.replace("_", " ").title(),
+            "icon":          meta.get("icon", "❓"),
             "urgency":       "High" if score > URGENCY_THRESHOLD else "Moderate",
             "question":      meta["question"],
             "answerOptions": meta["answerOptions"],

@@ -96,17 +96,21 @@ def _extract_review_texts(property_id: str | int, reviews_df: pd.DataFrame) -> l
     )
 
 
-def _keyword_frequencies(texts: list[str]) -> dict[str, float]:
+def _keyword_frequencies(
+    texts: list[str],
+    keyword_map: dict[str, list[str]] | None = None,
+) -> dict[str, float]:
     """Return mention frequency per category using keyword matching."""
+    kw_map = keyword_map if keyword_map is not None else GAP_KEYWORDS
     if not texts:
-        return {cat: 0.0 for cat in GAP_KEYWORDS}
+        return {cat: 0.0 for cat in kw_map}
     lowered = [t.lower() for t in texts]
     return {
         cat: min(
             sum(1 for t in lowered if any(kw in t for kw in kws)) / len(lowered),
             1.0,
         )
-        for cat, kws in GAP_KEYWORDS.items()
+        for cat, kws in kw_map.items()
     }
 
 
@@ -135,10 +139,15 @@ def _uniform() -> dict[str, float]:
 # OpenAI path
 # ---------------------------------------------------------------------------
 
-async def _openai_frequencies(review_text: str) -> dict[str, float] | None:
+async def _openai_frequencies(
+    review_text: str,
+    keyword_map: dict[str, list[str]] | None = None,
+) -> dict[str, float] | None:
     """
     Ask GPT-4o-mini for per-category mention frequencies.
-    Returns None on any error so the caller can fall back to keyword matching.
+    Accepts an optional keyword_map so it works with both hardcoded and
+    dynamic categories. Returns None on any error so the caller can fall
+    back to keyword matching.
     """
     try:
         from openai import AsyncOpenAI  # local import — only needed on this path
@@ -151,7 +160,8 @@ async def _openai_frequencies(review_text: str) -> dict[str, float] | None:
         logger.warning("OPENAI_API_KEY not set; falling back to keyword matching")
         return None
 
-    category_list = ", ".join(GAP_KEYWORDS.keys())
+    kw_map = keyword_map if keyword_map is not None else GAP_KEYWORDS
+    category_list = ", ".join(kw_map.keys())
     user_prompt = (
         f"Here are hotel reviews:\n{review_text}\n\n"
         f"For each category below, estimate what fraction of these reviews "
@@ -191,7 +201,7 @@ async def _openai_frequencies(review_text: str) -> dict[str, float] | None:
 
     # Validate: must have all expected categories and numeric values in [0, 1]
     freqs: dict[str, float] = {}
-    for cat in GAP_KEYWORDS:
+    for cat in kw_map:
         val = parsed.get(cat)
         if val is None:
             logger.warning("OpenAI response missing category '%s'; falling back", cat)
@@ -212,59 +222,88 @@ async def _openai_frequencies(review_text: str) -> dict[str, float] | None:
 async def analyze_reviews_with_openai(
     property_id: str | int,
     reviews_df: pd.DataFrame,
-    gap_categories: dict,   # passed in but we use GAP_KEYWORDS directly
+    gap_categories: dict,
+    dynamic_categories: list[dict] | None = None,
 ) -> dict[str, float]:
     """
-    Async entry point.  Returns normalised entropy scores {category: float}
+    Async entry point.  Returns normalised entropy scores {category_id: float}
     that sum to 1.  Uses OpenAI when available; keyword matching otherwise.
     Results are cached for 1 hour.
+
+    If *dynamic_categories* is supplied, entropy is scored against those category
+    ids and their GPT-generated keywords instead of the hardcoded GAP_KEYWORDS.
     """
     pid = str(property_id)
 
-    cached = _cache_get(pid)
+    # Use a cache key that incorporates whether we're in dynamic mode so that
+    # a dynamic request never returns a cached hardcoded result (and vice versa).
+    cache_key = f"{pid}:{'dynamic' if dynamic_categories else 'static'}"
+
+    cached = _cache_get(cache_key)
     if cached is not None:
         return cached
 
     texts = _extract_review_texts(pid, reviews_df)
 
+    # Build the active keyword map: dynamic if provided, else hardcoded
+    if dynamic_categories:
+        active_keywords: dict[str, list[str]] = {
+            c["id"]: c.get("keywords", []) for c in dynamic_categories
+        }
+    else:
+        active_keywords = GAP_KEYWORDS
+
     if not texts:
-        scores = _uniform()
-        _cache_set(pid, scores)
+        uniform = 1.0 / len(active_keywords)
+        scores = {cat: uniform for cat in active_keywords}
+        _cache_set(cache_key, scores)
         return scores
 
     # Truncate each review to 300 chars, join for the prompt
     review_text = "\n".join(t[:300] for t in texts)
 
-    freqs = await _openai_frequencies(review_text)
+    freqs = await _openai_frequencies(review_text, active_keywords)
 
     if freqs is None:
-        # Fall back to keyword matching
-        freqs = _keyword_frequencies(texts)
+        freqs = _keyword_frequencies(texts, active_keywords)
 
     scores = _frequencies_to_entropy_scores(freqs)
-    _cache_set(pid, scores)
+    _cache_set(cache_key, scores)
     return scores
 
 
 def compute_entropy_scores(
     property_id: str | int,
     reviews_df: pd.DataFrame,
+    dynamic_categories: list[dict] | None = None,
 ) -> dict[str, float]:
     """
     Synchronous fallback kept for backward compatibility with gap_detector.py.
     Uses keyword matching only (no OpenAI call).
+
+    Accepts optional *dynamic_categories* so it scores against the same
+    category set used by the async path.
     """
     pid = str(property_id)
+    cache_key = f"{pid}:{'dynamic' if dynamic_categories else 'static'}"
 
-    cached = _cache_get(pid)
+    cached = _cache_get(cache_key)
     if cached is not None:
         return cached
 
+    if dynamic_categories:
+        active_keywords: dict[str, list[str]] = {
+            c["id"]: c.get("keywords", []) for c in dynamic_categories
+        }
+    else:
+        active_keywords = GAP_KEYWORDS
+
     texts = _extract_review_texts(pid, reviews_df)
     if not texts:
-        return _uniform()
+        uniform = 1.0 / len(active_keywords)
+        return {cat: uniform for cat in active_keywords}
 
-    freqs = _keyword_frequencies(texts)
+    freqs = _keyword_frequencies(texts, active_keywords)
     scores = _frequencies_to_entropy_scores(freqs)
-    _cache_set(pid, scores)
+    _cache_set(cache_key, scores)
     return scores

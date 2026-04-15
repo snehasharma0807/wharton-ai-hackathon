@@ -4,6 +4,7 @@
 -- ============================================================
 
 -- Drop in reverse-dependency order so re-runs are safe
+drop table if exists gap_computation_cache;
 drop table if exists gap_scores_cache;
 drop table if exists gap_answers;
 drop table if exists review_sessions;
@@ -41,10 +42,28 @@ create index idx_gap_answers_property_id on gap_answers (property_id);
 create index idx_gap_answers_category    on gap_answers (gap_category);
 
 -- ------------------------------------------------------------
--- gap_scores_cache
+-- gap_scores_cache  (answer-aggregation stats per property)
 -- ------------------------------------------------------------
 create table gap_scores_cache (
   property_id   text primary key,
   scores        jsonb,
   last_computed timestamptz not null default now()
+);
+
+-- ------------------------------------------------------------
+-- gap_computation_cache
+-- Stores the expensive OpenAI results (embeddings → clusters →
+-- GPT labels + entropy scores) so they're only recomputed once
+-- per day per property rather than on every request.
+--
+-- categories     — dynamic gap categories discovered by clustering
+-- entropy_scores — per-category entropy scores from NLP analysis
+-- gaps           — final top-4 scored + ranked gap list (ready to serve)
+-- ------------------------------------------------------------
+create table gap_computation_cache (
+  property_id     text        primary key,
+  categories      jsonb,
+  entropy_scores  jsonb,
+  gaps            jsonb,
+  computed_at     timestamptz not null default now()
 );
