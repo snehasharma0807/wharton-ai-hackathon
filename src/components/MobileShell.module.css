@@ -1,0 +1,36 @@
+.shell {
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  background: #f0f4f8;
+}
+
+.device {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100dvh;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 431px) {
+  .shell {
+    align-items: flex-start;
+    padding: 32px 0 64px;
+  }
+
+  .device {
+    min-height: auto;
+    border-radius: 40px;
+    box-shadow:
+      0 0 0 10px #1a1a2e,
+      0 40px 80px rgba(0, 0, 0, 0.35),
+      0 20px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+}

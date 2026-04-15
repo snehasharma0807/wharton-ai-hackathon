@@ -1,0 +1,348 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #ffffff;
+  min-height: 100%;
+}
+
+.statusBar {
+  height: 44px;
+  background: #ffffff;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px 16px;
+  border-bottom: 1px solid #f0f4f8;
+}
+
+.backBtn {
+  background: #f0f4f8;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.backBtn:active {
+  background: #e4e9f0;
+}
+
+.headerCenter {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.headerStep {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ba8b5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progressBar {
+  height: 4px;
+  background: #e4e9f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #1668F5, #4d8dff);
+  border-radius: 4px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.headerPts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff8e1;
+  border: 1px solid #f5d78a;
+  border-radius: 10px;
+  padding: 6px 10px;
+  min-width: 52px;
+}
+
+.ptsValue {
+  font-size: 15px;
+  font-weight: 800;
+  color: #92600a;
+  line-height: 1;
+}
+
+.ptsUnit {
+  font-size: 10px;
+  color: #c49a3c;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 28px 20px 20px;
+}
+
+.categoryTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e8f0fe;
+  color: #1668F5;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.question {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a1a2e;
+  line-height: 1.3;
+  margin-bottom: 24px;
+  letter-spacing: -0.4px;
+}
+
+.textarea {
+  width: 100%;
+  border: 1.5px solid #e4e9f0;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #1a1a2e;
+  resize: none;
+  line-height: 1.6;
+  background: #fafbfd;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+.textarea:focus {
+  border-color: #1668F5;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(22, 104, 245, 0.1);
+}
+
+.textarea::placeholder {
+  color: #c0c8d2;
+}
+
+.charCount {
+  text-align: right;
+  font-size: 11px;
+  color: #9ba8b5;
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.skipBtn {
+  background: none;
+  color: #9ba8b5;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 12px 0 0;
+  display: block;
+  margin: 0 auto;
+  transition: color 0.15s;
+}
+
+.skipBtn:active {
+  color: #5f6b7a;
+}
+
+/* Footer */
+.footer {
+  padding: 12px 20px 32px;
+  border-top: 1px solid #f0f4f8;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footerPtsHint {
+  text-align: center;
+  min-height: 20px;
+}
+
+.ptsEarn {
+  font-size: 12px;
+  font-weight: 600;
+  color: #92600a;
+  animation: fadeIn 0.2s ease;
+}
+
+.ptsHint {
+  font-size: 12px;
+  color: #9ba8b5;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.nextBtn {
+  width: 100%;
+  background: #1668F5;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 16px 24px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(22, 104, 245, 0.35);
+}
+
+.nextBtn:disabled {
+  background: #c0c8d2;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.nextBtn:not(:disabled):active {
+  background: #1155d4;
+  transform: scale(0.98);
+}
+
+/* Success */
+.successScreen {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #ffffff;
+  min-height: 100%;
+}
+
+.successContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.successIcon {
+  font-size: 72px;
+  margin-bottom: 20px;
+  animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounceIn {
+  from { transform: scale(0.3); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.successTitle {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  letter-spacing: -0.4px;
+}
+
+.successSub {
+  font-size: 15px;
+  color: #5f6b7a;
+  margin-bottom: 32px;
+}
+
+.ptsCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff8e1;
+  border: 2px solid #f5a623;
+  border-radius: 16px;
+  padding: 20px 28px;
+  margin-bottom: 40px;
+  animation: slideUp 0.4s 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ptsCardIcon {
+  font-size: 40px;
+}
+
+.ptsCardLabel {
+  font-size: 12px;
+  color: #c49a3c;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.ptsCardValue {
+  font-size: 32px;
+  font-weight: 800;
+  color: #92600a;
+  letter-spacing: -0.5px;
+}
+
+.successActions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.primaryBtn {
+  width: 100%;
+  background: #1668F5;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 16px;
+  border-radius: 14px;
+  transition: background 0.15s, transform 0.1s;
+  box-shadow: 0 4px 16px rgba(22, 104, 245, 0.35);
+}
+
+.primaryBtn:active {
+  background: #1155d4;
+  transform: scale(0.98);
+}
+
+.secondaryBtn {
+  width: 100%;
+  background: #f7f9fc;
+  color: #1668F5;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1.5px solid #e4e9f0;
+  transition: background 0.15s;
+}
+
+.secondaryBtn:active {
+  background: #e8f0fe;
+}
