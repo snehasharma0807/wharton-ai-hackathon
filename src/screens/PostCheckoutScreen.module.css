@@ -4,6 +4,7 @@
   flex: 1;
   background: transparent;
   min-height: 100%;
+  position: relative;
 }
 
 .statusBar { height: 44px; }
@@ -247,3 +248,15 @@
 }
 
 .bottomPad { flex: 1; min-height: var(--s10); }
+
+.adminLink {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  color: #C0C8D8;
+  padding: 4px 8px;
+}
