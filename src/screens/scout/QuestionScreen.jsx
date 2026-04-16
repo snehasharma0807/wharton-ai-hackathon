@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { generateQuestion } from '../../utils/openai'
 import { addPoints } from '../../utils/points'
-import { submitReview } from '../../utils/api'
+import { saveSubmission } from '../../storage/submissions'
 import styles from './QuestionScreen.module.css'
 
 const PROPERTY_NAME = 'Art Deco Hotel, Frisco TX'
@@ -16,8 +16,6 @@ export default function QuestionScreen() {
     currentCategoryIndex = 0,
     completedCategories = [],
     previousAnswer = null,
-    reviewText = '',
-    sessionId = '',
   } = state
 
   const category = categories[currentCategoryIndex] ?? {}
@@ -53,6 +51,19 @@ export default function QuestionScreen() {
   const canSubmit = currentAnswer.length > 0
 
   function advance(answer) {
+    if (answer !== '(skipped)') {
+      saveSubmission({
+        type: 'gap_answer',
+        timestamp: new Date().toISOString(),
+        propertyName: 'Art Deco Hotel, Frisco TX',
+        category: category.label,
+        question: questionData?.question ?? '',
+        answer,
+        isCustomAnswer: showTextInput,
+        pointsEarned: 50,
+      })
+    }
+
     if (!isFollowup) {
       // Screen 5 → Screen 6 (follow-up for the same category)
       navigate('/review/text/question', {
@@ -62,8 +73,6 @@ export default function QuestionScreen() {
           currentCategoryIndex,
           completedCategories,
           previousAnswer: answer,
-          reviewText,
-          sessionId,
         },
       })
       return
@@ -73,8 +82,8 @@ export default function QuestionScreen() {
     const newCompleted = [
       ...completedCategories,
       {
-        label:   category.label,
-        icon:    category.icon,
+        label: category.label,
+        icon: category.icon,
         answer1: previousAnswer,
         answer2: answer,
       },
@@ -89,16 +98,12 @@ export default function QuestionScreen() {
           currentCategoryIndex: currentCategoryIndex + 1,
           completedCategories: newCompleted,
           previousAnswer: null,
-          reviewText,
-          sessionId,
         },
       })
     } else {
-      // All categories done — award points, submit to Supabase, go to payoff
+      // All categories done — award points and go to payoff
       const gamePts = newCompleted.length * 50 + (newCompleted.length > 1 ? 25 : 0)
       addPoints(gamePts)
-      // Fire-and-forget — don't block navigation on a network error
-      submitReview({ sessionId, reviewText, completedCats: newCompleted }).catch(() => {})
       navigate('/review/text/payoff', {
         state: { completedCategories: newCompleted },
       })

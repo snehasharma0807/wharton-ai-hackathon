@@ -118,6 +118,13 @@ export default function PostCheckoutScreen() {
       </div>
 
       <div className={styles.bottomPad} />
+
+      <button
+        className={styles.adminLink}
+        onClick={() => navigate('/admin')}
+      >
+        Admin
+      </button>
     </div>
   )
 }
