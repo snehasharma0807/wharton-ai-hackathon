@@ -117,6 +117,17 @@ GAP_CATEGORIES: dict[str, dict] = {
 URGENCY_THRESHOLD = 0.65
 
 
+def _gap_label(sparsity: float, entropy: float) -> str:
+    """Human-readable reason shown on the Topic Picker card."""
+    if sparsity > 0.6:
+        return "Missing from property info"
+    if entropy > 0.5:
+        return "Conflicting guest opinions"
+    if sparsity > 0.3:
+        return "Rarely mentioned in reviews"
+    return "No recent data"
+
+
 def _field_sparsity(property_row: pd.Series, fields: list[str]) -> float:
     """Fraction of expected description fields that are null/empty."""
     if not fields:
@@ -185,6 +196,7 @@ def detect_gaps(
             "topic":         meta.get("topic") or cat_id.replace("_", " ").title(),
             "icon":          meta.get("icon", "❓"),
             "urgency":       "High" if score > URGENCY_THRESHOLD else "Moderate",
+            "gapLabel":      _gap_label(sparsity, entropy),
             "question":      meta["question"],
             "answerOptions": meta["answerOptions"],
             "score":         score,

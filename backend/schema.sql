@@ -18,7 +18,8 @@ create table review_sessions (
   property_id text        not null,
   created_at  timestamptz not null default now(),
   input_mode  text,
-  star_rating integer
+  star_rating integer,
+  review_text text
 );
 
 create index idx_review_sessions_session_id  on review_sessions (session_id);

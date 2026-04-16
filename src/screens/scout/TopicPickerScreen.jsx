@@ -1,12 +1,24 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { GAP_CATEGORIES } from '../../data/gapCategories'
+import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { fetchGapCategories } from '../../utils/api'
+import { GAP_CATEGORIES as STATIC_FALLBACK } from '../../data/gapCategories'
 import styles from './TopicPickerScreen.module.css'
 
 export default function TopicPickerScreen() {
   const navigate = useNavigate()
-  // Array of category ids in the order they were tapped
+  const { state = {} } = useLocation()
+  const { reviewText = '', sessionId = '' } = state
+
+  const [categories, setCategories] = useState([])
+  const [loading, setLoading]       = useState(true)
   const [selectedIds, setSelectedIds] = useState([])
+
+  useEffect(() => {
+    fetchGapCategories()
+      .then(cats => setCategories(cats))
+      .catch(() => setCategories(STATIC_FALLBACK))
+      .finally(() => setLoading(false))
+  }, [])
 
   function toggleCategory(cat) {
     setSelectedIds(prev =>
@@ -19,7 +31,7 @@ export default function TopicPickerScreen() {
   function handleContinue() {
     if (selectedIds.length === 0) return
     const orderedCategories = selectedIds.map(id =>
-      GAP_CATEGORIES.find(c => c.id === id)
+      categories.find(c => c.id === id)
     )
     navigate('/review/text/question', {
       state: {
@@ -28,6 +40,8 @@ export default function TopicPickerScreen() {
         currentCategoryIndex: 0,
         completedCategories: [],
         previousAnswer: null,
+        reviewText,
+        sessionId,
       },
     })
   }
@@ -54,36 +68,34 @@ export default function TopicPickerScreen() {
           </p>
         </div>
 
-        {/* Category grid — renders however many categories come from the data source */}
-        <div className={styles.grid}>
-          {GAP_CATEGORIES.map(cat => {
-            const isSelected = selectedIds.includes(cat.id)
-            const selectionOrder = selectedIds.indexOf(cat.id)
-            return (
-              <button
-                key={cat.id}
-                className={`${styles.card} ${isSelected ? styles.cardSelected : ''}`}
-                onClick={() => toggleCategory(cat)}
-              >
-                {isSelected && (
-                  <div className={styles.selectionBadge}>{selectionOrder + 1}</div>
-                )}
-                <span className={styles.cardIcon}>{cat.icon}</span>
-                <span className={styles.cardLabel}>{cat.label}</span>
-                {/* data-status drives the badge color via CSS — no JS logic needed */}
-                <span
-                  className={styles.cardGapLabel}
-                  data-status={cat.statusColor}
+        {loading ? (
+          <div className={styles.gridLoading}>
+            <div className={styles.loadingDots}><span /><span /><span /></div>
+            <p className={styles.loadingText}>Finding gaps…</p>
+          </div>
+        ) : (
+          <div className={styles.grid}>
+            {categories.map(cat => {
+              const isSelected    = selectedIds.includes(cat.id)
+              const selectionOrder = selectedIds.indexOf(cat.id)
+              return (
+                <button
+                  key={cat.id}
+                  className={`${styles.card} ${isSelected ? styles.cardSelected : ''}`}
+                  onClick={() => toggleCategory(cat)}
                 >
-                  {cat.gapReason}
-                </span>
-              </button>
-            )
-          })}
-        </div>
+                  {isSelected && (
+                    <div className={styles.selectionBadge}>{selectionOrder + 1}</div>
+                  )}
+                  <span className={styles.cardIcon}>{cat.icon}</span>
+                  <span className={styles.cardLabel}>{cat.label}</span>
+                </button>
+              )
+            })}
+          </div>
+        )}
       </div>
 
-      {/* Rewards banner — static, always shown */}
       <div className={styles.rewardsBanner}>
         <span>🏅</span>
         <span className={styles.rewardsText}>+50 pts for each topic you help with</span>
@@ -93,7 +105,7 @@ export default function TopicPickerScreen() {
         <button
           className={styles.continueBtn}
           onClick={handleContinue}
-          disabled={selectedIds.length === 0}
+          disabled={selectedIds.length === 0 || loading}
         >
           Continue
           {selectedIds.length > 0 && (

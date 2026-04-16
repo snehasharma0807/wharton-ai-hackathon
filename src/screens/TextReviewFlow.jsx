@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { addPoints } from '../utils/points'
 import styles from './TextReviewFlow.module.css'
@@ -8,10 +8,12 @@ const HOTEL = { name: 'Art Deco Hotel', location: 'Frisco, TX' }
 export default function TextReviewFlow() {
   const navigate = useNavigate()
   const [reviewText, setReviewText] = useState('')
+  // Generate a stable session ID once per review flow instance
+  const sessionId = useRef(crypto.randomUUID()).current
 
   function handleSubmit() {
     addPoints(100)
-    navigate('/review/text/points', { state: { reviewText } })
+    navigate('/review/text/points', { state: { reviewText, sessionId } })
   }
 
   return (
