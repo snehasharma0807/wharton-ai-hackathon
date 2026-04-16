@@ -107,6 +107,14 @@ export default function PostCheckoutScreen() {
         <button className={styles.skipButton} onClick={() => {}}>
           Maybe later
         </button>
+
+        <button
+          type="button"
+          className={styles.guestReviewsLink}
+          onClick={() => navigate('/hotel/reviews')}
+        >
+          See guest reviews
+        </button>
       </div>
 
       <div className={styles.bottomPad} />
@@ -132,60 +140,97 @@ function ExpediaLogo() {
 function HotelIllustration() {
   return (
     <svg width="430" height="120" viewBox="0 0 430 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* Sky */}
-      <rect width="430" height="120" fill="#141928"/>
-      {/* Stars */}
-      <circle cx="40" cy="20" r="1.2" fill="#5B8EFF" opacity="0.6"/>
-      <circle cx="80" cy="12" r="0.8" fill="#FFFFFF" opacity="0.4"/>
-      <circle cx="130" cy="25" r="1" fill="#5B8EFF" opacity="0.5"/>
-      <circle cx="300" cy="15" r="1.2" fill="#FFFFFF" opacity="0.4"/>
-      <circle cx="370" cy="22" r="0.8" fill="#5B8EFF" opacity="0.6"/>
-      <circle cx="400" cy="8" r="1" fill="#FFFFFF" opacity="0.35"/>
-      {/* Moon */}
-      <circle cx="385" cy="18" r="9" fill="#FFD000" opacity="0.9"/>
-      <circle cx="389" cy="14" r="7" fill="#141928"/>
-      {/* Main building */}
-      <rect x="100" y="25" width="230" height="95" fill="#1C2338" rx="3"/>
-      <rect x="110" y="18" width="210" height="102" fill="#243050" rx="3"/>
-      {/* Building windows */}
-      {[0,1,2,3,4].map(row =>
-        [0,1,2,3,4,5,6,7].map(col => (
-          <rect key={`${row}-${col}`}
-            x={120 + col * 26} y={26 + row * 16}
-            width="16" height="10"
-            fill={
-              (row === 1 && col === 3) || (row === 3 && col === 5) ? '#FFD000' :
-              (row === 2 && col === 1) || (row === 0 && col === 6) ? '#5B8EFF' :
-              '#0A0E1A'
-            }
+      <defs>
+        <linearGradient id="skyGrad" x1="215" y1="0" x2="215" y2="95" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#7dd3fc" />
+          <stop offset="0.45" stopColor="#e0f2fe" />
+          <stop offset="1" stopColor="#f8fafc" />
+        </linearGradient>
+        <linearGradient id="sunGlow" x1="360" y1="28" x2="400" y2="72" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#fde047" stopOpacity="0.45" />
+          <stop offset="1" stopColor="#fde047" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      {/* Day sky */}
+      <rect width="430" height="120" fill="url(#skyGrad)" />
+      <circle cx="388" cy="38" r="36" fill="url(#sunGlow)" />
+      <circle cx="392" cy="34" r="14" fill="#facc15" />
+      {/* Clouds */}
+      <ellipse cx="72" cy="28" rx="28" ry="10" fill="#ffffff" opacity="0.85" />
+      <ellipse cx="92" cy="26" rx="22" ry="9" fill="#ffffff" opacity="0.75" />
+      <ellipse cx="248" cy="22" rx="24" ry="8" fill="#ffffff" opacity="0.7" />
+      <ellipse cx="268" cy="20" rx="18" ry="7" fill="#ffffff" opacity="0.65" />
+      {/* Side buildings — light stone */}
+      <rect x="0" y="52" width="100" height="68" fill="#e2e8f0" rx="2" />
+      <rect x="4" y="56" width="92" height="4" fill="#cbd5e1" rx="1" />
+      {[0, 1, 2].map(row =>
+        [0, 1, 2, 3].map(col => (
+          <rect
+            key={`L${row}-${col}`}
+            x={10 + col * 22}
+            y={62 + row * 18}
+            width="14"
+            height="10"
+            fill={(row + col) % 3 === 0 ? '#fef9c3' : '#f1f5f9'}
             rx="1.5"
-            opacity={row === 2 && col === 4 ? 0 : 0.9}
+            opacity="0.95"
           />
         ))
       )}
-      {/* Hotel entrance */}
-      <rect x="188" y="88" width="54" height="32" fill="#0A0E1A" rx="3"/>
-      <rect x="194" y="95" width="18" height="25" fill="#1C2338" rx="2"/>
-      <rect x="218" y="95" width="18" height="25" fill="#1C2338" rx="2"/>
-      <circle cx="210" cy="108" r="2" fill="#5B8EFF" opacity="0.6"/>
-      {/* Canopy */}
-      <path d="M178 88 L252 88 L245 78 L185 78 Z" fill="#5B8EFF" opacity="0.8"/>
-      {/* Side buildings */}
-      <rect x="0" y="55" width="100" height="65" fill="#141928" rx="2"/>
-      {[0,1,2].map(row => [0,1,2,3].map(col => (
-        <rect key={`L${row}-${col}`} x={10 + col*22} y={62 + row*18} width="14" height="10" fill="#0A0E1A" rx="1.5" opacity="0.9"/>
-      )))}
-      <rect x="330" y="45" width="100" height="75" fill="#141928" rx="2"/>
-      {[0,1,2,3].map(row => [0,1,2,3].map(col => (
-        <rect key={`R${row}-${col}`} x={338 + col*22} y={52 + row*16} width="14" height="10"
-          fill={(row===1&&col===2) ? '#FFD000' : '#0A0E1A'} rx="1.5" opacity="0.9"/>
-      )))}
-      {/* Ground */}
-      <rect x="0" y="110" width="430" height="10" fill="#0F1422"/>
-      {/* Lights on path */}
-      <circle cx="155" cy="115" r="2" fill="#FFD000" opacity="0.7"/>
-      <circle cx="275" cy="115" r="2" fill="#FFD000" opacity="0.7"/>
-      <circle cx="215" cy="117" r="1.5" fill="#5B8EFF" opacity="0.5"/>
+      {/* Main hotel — warm daylight facade */}
+      <rect x="100" y="22" width="230" height="98" fill="#cbd5e1" rx="3" />
+      <rect x="104" y="18" width="222" height="8" fill="#94a3b8" rx="2" />
+      <rect x="108" y="24" width="214" height="94" fill="#e2e8f0" rx="2" />
+      {/* Windows — sky reflections + warm accents */}
+      {[0, 1, 2, 3, 4].map(row =>
+        [0, 1, 2, 3, 4, 5, 6, 7].map(col => (
+          <rect
+            key={`${row}-${col}`}
+            x={120 + col * 26}
+            y={28 + row * 16}
+            width="16"
+            height="10"
+            fill={
+              (row === 1 && col === 3) || (row === 3 && col === 5)
+                ? '#fbbf24'
+                : (row === 2 && col === 1) || (row === 0 && col === 6)
+                  ? '#7dd3fc'
+                  : '#bae6fd'
+            }
+            rx="1.5"
+            opacity={row === 2 && col === 4 ? 0.35 : 0.92}
+          />
+        ))
+      )}
+      {/* Entrance */}
+      <path d="M178 88 L252 88 L245 78 L185 78 Z" fill="#60a5fa" opacity="0.55" />
+      <rect x="188" y="88" width="54" height="32" fill="#64748b" rx="3" />
+      <rect x="194" y="95" width="18" height="25" fill="#475569" rx="2" />
+      <rect x="218" y="95" width="18" height="25" fill="#475569" rx="2" />
+      <circle cx="210" cy="108" r="2" fill="#38bdf8" />
+      {/* Right building */}
+      <rect x="330" y="42" width="100" height="78" fill="#e2e8f0" rx="2" />
+      <rect x="334" y="46" width="92" height="4" fill="#cbd5e1" rx="1" />
+      {[0, 1, 2, 3].map(row =>
+        [0, 1, 2, 3].map(col => (
+          <rect
+            key={`R${row}-${col}`}
+            x={338 + col * 22}
+            y={52 + row * 16}
+            width="14"
+            height="10"
+            fill={row === 1 && col === 2 ? '#fef08a' : '#dbeafe'}
+            rx="1.5"
+            opacity="0.95"
+          />
+        ))
+      )}
+      {/* Sidewalk */}
+      <rect x="0" y="108" width="430" height="12" fill="#e2e8f0" />
+      <line x1="0" y1="108" x2="430" y2="108" stroke="#cbd5e1" strokeWidth="1" />
+      <circle cx="155" cy="114" r="2" fill="#cbd5e1" />
+      <circle cx="275" cy="114" r="2" fill="#cbd5e1" />
+      <circle cx="215" cy="115" r="1.5" fill="#94a3b8" />
     </svg>
   )
 }

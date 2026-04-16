@@ -2,14 +2,13 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background: var(--bg);
+  background: var(--surface);
   min-height: 100%;
   color: var(--text-1);
 }
 
 .statusBar { height: 44px; }
 
-/* Header */
 .header {
   display: flex;
   align-items: center;
@@ -28,8 +27,10 @@
   justify-content: center;
   flex-shrink: 0;
   cursor: pointer;
+  color: var(--text-2);
   transition: border-color 0.15s;
 }
+
 .backBtn:active { border-color: var(--text-3); }
 
 .scoutBadge {
@@ -40,15 +41,15 @@
   gap: var(--s2);
   font-size: 10px;
   font-weight: 600;
-  color: var(--text-2);
+  color: var(--text-3);
   text-transform: uppercase;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.08em;
 }
 
 .scoutDot {
   display: inline-block;
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: var(--accent);
   flex-shrink: 0;
@@ -56,34 +57,29 @@
 
 .headerRight { width: 32px; }
 
-/* Title */
-.scrollable { flex: 1; overflow-y: auto; padding-bottom: var(--s2); }
-
-.titleBlock { padding: var(--s6) var(--s6) var(--s5); }
-
-.title {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text-1);
-  margin-bottom: var(--s2);
-  letter-spacing: -0.4px;
-  line-height: 1.2;
-}
-
-.subtitle {
-  font-size: 14px;
-  color: #7A90B0;
-  line-height: 1.5;
-}
-
-/* Scrollable area — contains title + grid; grows to fill available space */
 .scrollable {
   flex: 1;
   overflow-y: auto;
   padding-bottom: 8px;
 }
 
-/* Grid loading state */
+.titleBlock { padding: var(--s6) var(--s6) var(--s5); }
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: var(--s2);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+
 .gridLoading {
   display: flex;
   flex-direction: column;
@@ -101,7 +97,7 @@
 .loadingDots span {
   width: 8px;
   height: 8px;
-  background: #5BA3F5;
+  background: var(--accent);
   border-radius: 50%;
   animation: dotPulse 1.2s ease-in-out infinite;
 }
@@ -116,97 +112,145 @@
 
 .loadingText {
   font-size: 13px;
-  color: #4A6080;
+  color: var(--text-2);
   font-style: italic;
 }
 
-/* Category grid — auto-fills 2 columns, wraps gracefully for any count */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+/* Full-width rows — no card grid */
+.topicList {
+  border-top: 1px solid var(--border);
+  margin: 0 var(--s6);
+}
+
+.topicRow {
+  display: flex;
+  align-items: center;
   gap: var(--s3);
-  padding: 0 var(--s6);
-  margin-bottom: var(--s4);
-}
-
-.card {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid var(--border);
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: var(--s4) var(--s4) var(--s4);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--s2);
-  cursor: pointer;
-  transition: border-color 0.15s, transform 0.1s;
-  position: relative;
   text-align: left;
+  cursor: pointer;
+  color: var(--text-3);
 }
 
-.card:active { transform: scale(0.97); }
-.card:hover { border-color: var(--text-3); }
-
-.cardSelected {
-  border-color: var(--accent);
-  background: var(--surface);
+.topicRow:last-child {
+  border-bottom: none;
 }
 
-.selectionBadge {
-  position: absolute;
-  top: var(--s2);
-  right: var(--s2);
-  width: 20px;
-  height: 20px;
-  background: var(--accent);
-  border-radius: var(--r-sm);
-  color: white;
-  font-size: 10px;
-  font-weight: 700;
+.topicRow:active {
+  background: var(--surface-2);
+}
+
+.topicRowSelected {
+  background: transparent;
+}
+
+.topicRowSelected .topicRowLabel {
+  color: var(--accent);
+}
+
+.topicRowIcon {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.cardIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: var(--s2);
+  width: 28px;
   color: var(--text-2);
 }
 
-.cardLabel {
+.topicRowIconInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topicRowIconInner :global(svg) {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.topicEmoji {
+  font-size: 22px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topicRowText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.topicRowLabel {
   font-size: 14px;
   font-weight: 600;
   color: var(--text-1);
 }
 
-/* Rewards */
-.rewardsBanner {
+.topicRowMeta {
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.topicRowMeta[data-status='missing'] {
+  color: #b91c1c;
+}
+
+.topicRowMeta[data-status='stale'],
+.topicRowMeta[data-status='conflicting'] {
+  color: #c2410c;
+}
+
+.topicRowBadge {
+  flex-shrink: 0;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--s2);
-  margin: 0 var(--s6) var(--s4);
-  padding: var(--s3) var(--s4);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border-radius: var(--r-sm);
 }
 
-.rewardsText {
+.topicRowPlaceholder {
+  width: 22px;
+  flex-shrink: 0;
+}
+
+.rewardsBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin: var(--s4) var(--s6) 0;
+  padding: var(--s3) 0 0;
+  border-top: 1px solid var(--border);
   font-size: 12px;
-  font-weight: 500;
   color: var(--text-2);
 }
 
-/* Footer */
+.rewardsText {
+  font-weight: 500;
+}
+
 .footer {
   padding: var(--s2) var(--s6) var(--s8);
   display: flex;
   flex-direction: column;
   gap: var(--s3);
   border-top: 1px solid var(--border);
+  margin-top: var(--s4);
 }
 
 .continueBtn {
@@ -215,7 +259,7 @@
   color: white;
   font-size: 14px;
   font-weight: 600;
-  padding: 15px var(--s6);
+  padding: 12px var(--s6);
   border-radius: var(--r-md);
   border: none;
   display: flex;
@@ -223,7 +267,7 @@
   justify-content: center;
   gap: var(--s2);
   cursor: pointer;
-  transition: opacity 0.15s, transform 0.1s;
+  transition: opacity 0.15s;
 }
 
 .continueBtn:disabled {
@@ -232,10 +276,10 @@
   cursor: not-allowed;
 }
 
-.continueBtn:not(:disabled):active { opacity: 0.85; transform: scale(0.99); }
+.continueBtn:not(:disabled):active { opacity: 0.9; }
 
 .continueBadge {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: var(--r-sm);
   font-size: 11px;
   font-weight: 700;

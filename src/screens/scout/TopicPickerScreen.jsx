@@ -7,38 +7,50 @@ import styles from './TopicPickerScreen.module.css'
 const CATEGORY_ICONS = {
   pool: (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-      <path d="M4 20C6 18 8 18 10 20C12 22 14 22 16 20C18 18 20 18 22 20C24 22 26 22 26 22" stroke="#5B8EFF" strokeWidth="1.8" strokeLinecap="round"/>
-      <path d="M4 24C6 22 8 22 10 24C12 26 14 26 16 24C18 22 20 22 22 24C24 26 26 26 26 26" stroke="#5B8EFF" strokeWidth="1.8" strokeLinecap="round" opacity="0.5"/>
-      <circle cx="19" cy="6" r="2.5" stroke="#5B8EFF" strokeWidth="1.6"/>
-      <path d="M14 10L16 14H22L19 18" stroke="#5B8EFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M14 10L11 14" stroke="#5B8EFF" strokeWidth="1.6" strokeLinecap="round"/>
+      <path d="M4 20C6 18 8 18 10 20C12 22 14 22 16 20C18 18 20 18 22 20C24 22 26 22 26 22" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+      <path d="M4 24C6 22 8 22 10 24C12 26 14 26 16 24C18 22 20 22 22 24C24 26 26 26 26 26" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" opacity="0.5"/>
+      <circle cx="19" cy="6" r="2.5" stroke="currentColor" strokeWidth="1.6"/>
+      <path d="M14 10L16 14H22L19 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M14 10L11 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
     </svg>
   ),
   shuttle: (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-      <rect x="2" y="7" width="24" height="14" rx="3" stroke="#5B8EFF" strokeWidth="1.7"/>
-      <path d="M2 13H26" stroke="#5B8EFF" strokeWidth="1.5"/>
-      <path d="M7 7V13M14 7V13M21 7V13" stroke="#5B8EFF" strokeWidth="1.3" strokeLinecap="round" opacity="0.6"/>
-      <circle cx="8" cy="23" r="2.5" stroke="#5B8EFF" strokeWidth="1.6"/>
-      <circle cx="20" cy="23" r="2.5" stroke="#5B8EFF" strokeWidth="1.6"/>
-      <path d="M2 10H26" stroke="#5B8EFF" strokeWidth="1.5" opacity="0.3"/>
+      <rect x="2" y="7" width="24" height="14" rx="3" stroke="currentColor" strokeWidth="1.7"/>
+      <path d="M2 13H26" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M7 7V13M14 7V13M21 7V13" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.6"/>
+      <circle cx="8" cy="23" r="2.5" stroke="currentColor" strokeWidth="1.6"/>
+      <circle cx="20" cy="23" r="2.5" stroke="currentColor" strokeWidth="1.6"/>
+      <path d="M2 10H26" stroke="currentColor" strokeWidth="1.5" opacity="0.3"/>
     </svg>
   ),
   'pet-policy': (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-      <ellipse cx="10" cy="7" rx="2.5" ry="3.5" stroke="#5B8EFF" strokeWidth="1.6"/>
-      <ellipse cx="18" cy="7" rx="2.5" ry="3.5" stroke="#5B8EFF" strokeWidth="1.6"/>
-      <ellipse cx="5" cy="13" rx="2" ry="3" stroke="#5B8EFF" strokeWidth="1.6"/>
-      <ellipse cx="23" cy="13" rx="2" ry="3" stroke="#5B8EFF" strokeWidth="1.6"/>
-      <path d="M14 13C9 13 6 16 6 20C6 22.2 7.8 24 10 24H18C20.2 24 22 22.2 22 20C22 16 19 13 14 13Z" stroke="#5B8EFF" strokeWidth="1.6" strokeLinejoin="round"/>
+      <ellipse cx="10" cy="7" rx="2.5" ry="3.5" stroke="currentColor" strokeWidth="1.6"/>
+      <ellipse cx="18" cy="7" rx="2.5" ry="3.5" stroke="currentColor" strokeWidth="1.6"/>
+      <ellipse cx="5" cy="13" rx="2" ry="3" stroke="currentColor" strokeWidth="1.6"/>
+      <ellipse cx="23" cy="13" rx="2" ry="3" stroke="currentColor" strokeWidth="1.6"/>
+      <path d="M14 13C9 13 6 16 6 20C6 22.2 7.8 24 10 24H18C20.2 24 22 22.2 22 20C22 16 19 13 14 13Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
     </svg>
   ),
   parking: (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-      <rect x="3" y="3" width="22" height="22" rx="4" stroke="#5B8EFF" strokeWidth="1.7"/>
-      <path d="M10 20V8H15.5C17.985 8 20 10.015 20 12.5C20 14.985 17.985 17 15.5 17H10" stroke="#5B8EFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      <rect x="3" y="3" width="22" height="22" rx="4" stroke="currentColor" strokeWidth="1.7"/>
+      <path d="M10 20V8H15.5C17.985 8 20 10.015 20 12.5C20 14.985 17.985 17 15.5 17H10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   ),
+}
+
+function TopicIcon({ cat }) {
+  const fallback = CATEGORY_ICONS[cat.id]
+  const raw = cat.icon
+  if (raw != null && raw !== '') {
+    if (typeof raw === 'string') {
+      return <span className={styles.topicEmoji}>{raw}</span>
+    }
+    return <span className={styles.topicRowIconInner}>{raw}</span>
+  }
+  return <span className={styles.topicRowIconInner}>{fallback}</span>
 }
 
 export default function TopicPickerScreen() {
@@ -88,9 +100,9 @@ export default function TopicPickerScreen() {
       <div className={styles.statusBar} />
 
       <header className={styles.header}>
-        <button className={styles.backBtn} onClick={() => navigate(-1)} aria-label="Go back">
+        <button type="button" className={styles.backBtn} onClick={() => navigate(-1)} aria-label="Go back">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <path d="M14 17L8 11L14 5" stroke="#5B8EFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M14 17L8 11L14 5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
         <div className={styles.scoutBadge}>
@@ -114,21 +126,34 @@ export default function TopicPickerScreen() {
             <p className={styles.loadingText}>Finding gaps…</p>
           </div>
         ) : (
-          <div className={styles.grid}>
+          <div className={styles.topicList}>
             {categories.map(cat => {
-              const isSelected    = selectedIds.includes(cat.id)
+              const isSelected = selectedIds.includes(cat.id)
               const selectionOrder = selectedIds.indexOf(cat.id)
               return (
                 <button
                   key={cat.id}
-                  className={`${styles.card} ${isSelected ? styles.cardSelected : ''}`}
+                  type="button"
+                  className={`${styles.topicRow} ${isSelected ? styles.topicRowSelected : ''}`}
                   onClick={() => toggleCategory(cat)}
                 >
-                  {isSelected && (
-                    <div className={styles.selectionBadge}>{selectionOrder + 1}</div>
+                  <span className={styles.topicRowIcon}>
+                    <TopicIcon cat={cat} />
+                  </span>
+                  <span className={styles.topicRowText}>
+                    <span className={styles.topicRowLabel}>{cat.label}</span>
+                    <span
+                      className={styles.topicRowMeta}
+                      data-status={cat.statusColor}
+                    >
+                      {cat.gapReason}
+                    </span>
+                  </span>
+                  {isSelected ? (
+                    <span className={styles.topicRowBadge}>{selectionOrder + 1}</span>
+                  ) : (
+                    <span className={styles.topicRowPlaceholder} aria-hidden />
                   )}
-                  <span className={styles.cardIcon}>{cat.icon}</span>
-                  <span className={styles.cardLabel}>{cat.label}</span>
                 </button>
               )
             })}
@@ -145,6 +170,7 @@ export default function TopicPickerScreen() {
 
       <div className={styles.footer}>
         <button
+          type="button"
           className={styles.continueBtn}
           onClick={handleContinue}
           disabled={selectedIds.length === 0 || loading}
@@ -154,7 +180,7 @@ export default function TopicPickerScreen() {
             <span className={styles.continueBadge}>{selectedIds.length}</span>
           )}
         </button>
-        <button className={styles.skipBtn} onClick={() => navigate('/')}>
+        <button type="button" className={styles.skipBtn} onClick={() => navigate('/')}>
           Skip all topics
         </button>
       </div>

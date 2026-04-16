@@ -11,7 +11,7 @@ export default function OwnerDashboard() {
       <header className={styles.header}>
         <button className={styles.backBtn} onClick={() => navigate(-1)} aria-label="Back">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <path d="M14 17L8 11L14 5" stroke="#5B8EFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M14 17L8 11L14 5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
         <h2 className={styles.headerTitle}>My Rewards</h2>
