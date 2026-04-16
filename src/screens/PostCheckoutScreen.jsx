@@ -19,18 +19,14 @@ export default function PostCheckoutScreen() {
       {/* Top nav */}
       <header className={styles.header}>
         <ExpediaLogo />
-        <button className={styles.menuBtn} aria-label="Menu">
-          <span />
-          <span />
-          <span />
-        </button>
+        <button className={styles.signInBtn}>Sign in</button>
       </header>
 
       {/* Hero area */}
       <section className={styles.hero}>
         <div className={styles.heroBadge}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 1L10.163 5.279L15 5.972L11.5 9.323L12.326 14L8 11.779L3.674 14L4.5 9.323L1 5.972L5.837 5.279L8 1Z" fill="#f5a623" stroke="#f5a623" strokeWidth="1" strokeLinejoin="round"/>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1L10.163 5.279L15 5.972L11.5 9.323L12.326 14L8 11.779L3.674 14L4.5 9.323L1 5.972L5.837 5.279L8 1Z" fill="#FFD000" stroke="#FFD000" strokeWidth="1" strokeLinejoin="round"/>
           </svg>
           Checkout Complete
         </div>
@@ -60,13 +56,20 @@ export default function PostCheckoutScreen() {
       <div className={styles.cardWrap}>
         <div className={styles.card}>
           <div className={styles.cardTop}>
-            <div className={styles.cardIcon}>💬</div>
+            <div className={styles.cardIcon}>
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <path d="M4 18L4.5 14.5L13.5 5.5L17.5 9.5L8.5 18.5L5 19L4 18Z" fill="#5B8EFF" opacity="0.3"/>
+                <path d="M13 6L17 10M4 18.5L4.5 15L14 5.5L17.5 9L8 18.5L4 18.5Z" stroke="#5B8EFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
             <div className={styles.cardText}>
               <h3 className={styles.cardTitle}>Share your experience</h3>
               <p className={styles.cardSub}>Help future travelers & earn rewards</p>
             </div>
             <div className={styles.pointsBadge}>
-              <span className={styles.pointsMedal}>🏅</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 1L10.163 5.279L15 5.972L11.5 9.323L12.326 14L8 11.779L3.674 14L4.5 9.323L1 5.972L5.837 5.279L8 1Z" fill="#FFD000" stroke="#FFD000" strokeWidth="0.8" strokeLinejoin="round"/>
+              </svg>
               <span className={styles.pointsText}>
                 Earn up to<br />
                 <strong>200 pts</strong>
@@ -76,11 +79,16 @@ export default function PostCheckoutScreen() {
 
           <div className={styles.perksRow}>
             <div className={styles.perk}>
-              <span className={styles.perkIcon}>⚡</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 1L7.8 4.6L11 3L9 6L13 7L9 8L11 11L7.8 9.4L7 13L6.2 9.4L3 11L5 8L1 7L5 6L3 3L6.2 4.6L7 1Z" fill="#5B8EFF"/>
+              </svg>
               <span>Quick 2-min review</span>
             </div>
             <div className={styles.perk}>
-              <span className={styles.perkIcon}>🎁</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="6" stroke="#5B8EFF" strokeWidth="1.4"/>
+                <path d="M5 7L6.5 8.5L9.5 5.5" stroke="#5B8EFF" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
               <span>Redeem for travel</span>
             </div>
           </div>
@@ -109,47 +117,75 @@ export default function PostCheckoutScreen() {
 function ExpediaLogo() {
   return (
     <div className={styles.logo}>
-      <svg width="110" height="28" viewBox="0 0 110 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {/* Expedia wordmark approximation */}
-        <text x="2" y="22" fontFamily="Inter, sans-serif" fontWeight="800" fontSize="21" fill="#1668F5" letterSpacing="-0.5">expedia</text>
-        <circle cx="103" cy="12" r="5" fill="#f5a623"/>
-      </svg>
+      {/* Expedia yellow icon */}
+      <div className={styles.logoIcon}>
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <rect width="22" height="22" rx="5" fill="#FFD000"/>
+          <path d="M7 11L11 7L15 11M11 7V16" stroke="#0A0E1A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+      <span className={styles.logoText}>expedia</span>
     </div>
   )
 }
 
 function HotelIllustration() {
   return (
-    <svg width="320" height="100" viewBox="0 0 320 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* Sky gradient */}
-      <rect width="320" height="100" fill="url(#skyGrad)" rx="0"/>
-      {/* Building */}
-      <rect x="80" y="20" width="160" height="80" fill="#cbd5e1" rx="4"/>
-      <rect x="90" y="10" width="140" height="90" fill="#e2e8f0" rx="4"/>
-      {/* Windows rows */}
+    <svg width="430" height="120" viewBox="0 0 430 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Sky */}
+      <rect width="430" height="120" fill="#141928"/>
+      {/* Stars */}
+      <circle cx="40" cy="20" r="1.2" fill="#5B8EFF" opacity="0.6"/>
+      <circle cx="80" cy="12" r="0.8" fill="#FFFFFF" opacity="0.4"/>
+      <circle cx="130" cy="25" r="1" fill="#5B8EFF" opacity="0.5"/>
+      <circle cx="300" cy="15" r="1.2" fill="#FFFFFF" opacity="0.4"/>
+      <circle cx="370" cy="22" r="0.8" fill="#5B8EFF" opacity="0.6"/>
+      <circle cx="400" cy="8" r="1" fill="#FFFFFF" opacity="0.35"/>
+      {/* Moon */}
+      <circle cx="385" cy="18" r="9" fill="#FFD000" opacity="0.9"/>
+      <circle cx="389" cy="14" r="7" fill="#141928"/>
+      {/* Main building */}
+      <rect x="100" y="25" width="230" height="95" fill="#1C2338" rx="3"/>
+      <rect x="110" y="18" width="210" height="102" fill="#243050" rx="3"/>
+      {/* Building windows */}
       {[0,1,2,3,4].map(row =>
-        [0,1,2,3,4,5,6].map(col => (
-          <rect key={`${row}-${col}`} x={98 + col*19} y={18 + row*14} width="10" height="9" fill={row === 2 && col === 3 ? '#fbbf24' : '#93c5fd'} rx="1" opacity="0.85"/>
+        [0,1,2,3,4,5,6,7].map(col => (
+          <rect key={`${row}-${col}`}
+            x={120 + col * 26} y={26 + row * 16}
+            width="16" height="10"
+            fill={
+              (row === 1 && col === 3) || (row === 3 && col === 5) ? '#FFD000' :
+              (row === 2 && col === 1) || (row === 0 && col === 6) ? '#5B8EFF' :
+              '#0A0E1A'
+            }
+            rx="1.5"
+            opacity={row === 2 && col === 4 ? 0 : 0.9}
+          />
         ))
       )}
-      {/* Door */}
-      <rect x="148" y="72" width="24" height="28" fill="#1668F5" rx="2"/>
-      <circle cx="167" cy="86" r="1.5" fill="white"/>
-      {/* Foreground grass */}
-      <rect x="0" y="88" width="320" height="20" fill="#86efac"/>
-      {/* Trees */}
-      <circle cx="60" cy="72" r="18" fill="#4ade80"/>
-      <rect x="57" y="85" width="6" height="15" fill="#713f12"/>
-      <circle cx="260" cy="68" r="22" fill="#4ade80"/>
-      <rect x="257" y="85" width="6" height="15" fill="#713f12"/>
-      {/* Sky sun */}
-      <circle cx="280" cy="22" r="12" fill="#fde68a" opacity="0.8"/>
-      <defs>
-        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#dbeafe"/>
-          <stop offset="1" stopColor="#bfdbfe"/>
-        </linearGradient>
-      </defs>
+      {/* Hotel entrance */}
+      <rect x="188" y="88" width="54" height="32" fill="#0A0E1A" rx="3"/>
+      <rect x="194" y="95" width="18" height="25" fill="#1C2338" rx="2"/>
+      <rect x="218" y="95" width="18" height="25" fill="#1C2338" rx="2"/>
+      <circle cx="210" cy="108" r="2" fill="#5B8EFF" opacity="0.6"/>
+      {/* Canopy */}
+      <path d="M178 88 L252 88 L245 78 L185 78 Z" fill="#5B8EFF" opacity="0.8"/>
+      {/* Side buildings */}
+      <rect x="0" y="55" width="100" height="65" fill="#141928" rx="2"/>
+      {[0,1,2].map(row => [0,1,2,3].map(col => (
+        <rect key={`L${row}-${col}`} x={10 + col*22} y={62 + row*18} width="14" height="10" fill="#0A0E1A" rx="1.5" opacity="0.9"/>
+      )))}
+      <rect x="330" y="45" width="100" height="75" fill="#141928" rx="2"/>
+      {[0,1,2,3].map(row => [0,1,2,3].map(col => (
+        <rect key={`R${row}-${col}`} x={338 + col*22} y={52 + row*16} width="14" height="10"
+          fill={(row===1&&col===2) ? '#FFD000' : '#0A0E1A'} rx="1.5" opacity="0.9"/>
+      )))}
+      {/* Ground */}
+      <rect x="0" y="110" width="430" height="10" fill="#0F1422"/>
+      {/* Lights on path */}
+      <circle cx="155" cy="115" r="2" fill="#FFD000" opacity="0.7"/>
+      <circle cx="275" cy="115" r="2" fill="#FFD000" opacity="0.7"/>
+      <circle cx="215" cy="117" r="1.5" fill="#5B8EFF" opacity="0.5"/>
     </svg>
   )
 }

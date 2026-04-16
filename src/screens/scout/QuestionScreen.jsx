@@ -120,7 +120,7 @@ export default function QuestionScreen() {
         </button>
         <div className={styles.headerCenter}>
           <span className={styles.headerCategory}>
-            {category.icon} {category.label}
+            {category.label}
           </span>
           <div className={styles.progressRow}>
             <div className={styles.progressBar}>
@@ -148,7 +148,7 @@ export default function QuestionScreen() {
 
         {/* Scout question bubble — shows loading state inline */}
         <div className={styles.bubbleWrap}>
-          <span className={styles.bubbleLabel}>● SCOUT</span>
+          <span className={styles.bubbleLabel}><span className={styles.scoutDot} />SCOUT</span>
           <div className={styles.bubble}>
             {loading ? (
               <div className={styles.thinkingRow}>
@@ -189,7 +189,7 @@ export default function QuestionScreen() {
                 className={styles.ownWordsBtn}
                 onClick={() => { setShowTextInput(true); setSelectedChip(null) }}
               >
-                ✏️&nbsp; Describe in your own words
+                Describe in your own words
               </button>
             </>
           ) : (

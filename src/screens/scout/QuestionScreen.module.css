@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background: #0D1B2E;
+  background: #0A0E1A;
   min-height: 100%;
 }
 
-.statusBar { height: 44px; background: #0D1B2E; }
+.statusBar { height: 44px; background: #0A0E1A; }
 
 /* Header */
 .header {
@@ -14,7 +14,7 @@
   align-items: center;
   gap: 12px;
   padding: 8px 16px 14px;
-  border-bottom: 1px solid #1E3A5F;
+  border-bottom: 1px solid #1C2338;
 }
 
 .backBtn {
@@ -55,14 +55,14 @@
 .progressBar {
   flex: 1;
   height: 4px;
-  background: #1E3A5F;
+  background: #1C2338;
   border-radius: 4px;
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #0071C2, #5BA3F5);
+  background: linear-gradient(90deg, #5B8EFF, #5B8EFF);
   border-radius: 4px;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -89,7 +89,7 @@
 /* "You said" chip */
 .previousChip {
   background: #172336;
-  border: 1px solid #1E3A5F;
+  border: 1px solid #1C2338;
   border-radius: 10px;
   padding: 10px 14px;
   display: flex;
@@ -121,7 +121,7 @@
 .bubbleLabel {
   font-size: 10px;
   font-weight: 800;
-  color: #5BA3F5;
+  color: #5B8EFF;
   letter-spacing: 1px;
 }
 
@@ -151,7 +151,7 @@
 
 .thinkingText {
   font-size: 13px;
-  color: #5BA3F5;
+  color: #5B8EFF;
   font-style: italic;
 }
 
@@ -165,7 +165,7 @@
 .loadingDots span {
   width: 7px;
   height: 7px;
-  background: #5BA3F5;
+  background: #5B8EFF;
   border-radius: 50%;
   animation: dotPulse 1.2s ease-in-out infinite;
 }
@@ -187,7 +187,7 @@
 
 .chip {
   background: #172336;
-  border: 1.5px solid #1E3A5F;
+  border: 1.5px solid #1C2338;
   border-radius: 12px;
   padding: 13px 16px;
   text-align: left;
@@ -196,16 +196,16 @@
   color: #C0D0E8;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s, transform 0.1s;
-  font-family: inherit;
+  font-family: 'Sora', system-ui, sans-serif;
 }
 
 .chip:active { transform: scale(0.98); }
 
 .chipSelected {
-  border-color: #0071C2;
+  border-color: #5B8EFF;
   background: #0E2A48;
   color: #ffffff;
-  box-shadow: 0 0 0 2px rgba(0, 113, 194, 0.25);
+  box-shadow: 0 0 0 2px rgba(91, 142, 255, 0.25);
 }
 
 /* "or" divider */
@@ -218,7 +218,7 @@
 .orLine {
   flex: 1;
   height: 1px;
-  background: #1E3A5F;
+  background: #1C2338;
 }
 
 .orText {
@@ -239,11 +239,11 @@
   color: #8A9DC0;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s;
-  font-family: inherit;
+  font-family: 'Sora', system-ui, sans-serif;
   width: 100%;
 }
 
-.ownWordsBtn:active { background: #1E3A5F; }
+.ownWordsBtn:active { background: #1C2338; }
 
 .ownWordsArea {
   display: flex;
@@ -254,7 +254,7 @@
 .textarea {
   width: 100%;
   background: #172336;
-  border: 1.5px solid #1E3A5F;
+  border: 1.5px solid #1C2338;
   border-radius: 14px;
   padding: 14px 16px;
   font-size: 15px;
@@ -262,14 +262,14 @@
   resize: none;
   line-height: 1.6;
   outline: none;
-  font-family: inherit;
+  font-family: 'Sora', system-ui, sans-serif;
   box-sizing: border-box;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .textarea:focus {
-  border-color: #0071C2;
-  box-shadow: 0 0 0 3px rgba(0, 113, 194, 0.15);
+  border-color: #5B8EFF;
+  box-shadow: 0 0 0 3px rgba(91, 142, 255, 0.15);
 }
 
 .textarea::placeholder { color: #4A6080; }
@@ -282,7 +282,7 @@
   font-weight: 500;
   cursor: pointer;
   text-align: left;
-  font-family: inherit;
+  font-family: 'Sora', system-ui, sans-serif;
   padding: 0;
   transition: color 0.15s;
 }
@@ -292,8 +292,8 @@
 /* Footer */
 .footer {
   padding: 12px 20px 32px;
-  border-top: 1px solid #1E3A5F;
-  background: #0D1B2E;
+  border-top: 1px solid #1C2338;
+  background: #0A0E1A;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -301,7 +301,7 @@
 
 .submitBtn {
   width: 100%;
-  background: #0071C2;
+  background: #5B8EFF;
   color: white;
   font-size: 15px;
   font-weight: 700;
@@ -314,12 +314,12 @@
   gap: 8px;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
-  box-shadow: 0 4px 14px rgba(0, 113, 194, 0.4);
-  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(91, 142, 255, 0.4);
+  font-family: 'Sora', system-ui, sans-serif;
 }
 
 .submitBtn:disabled {
-  background: #1E3A5F;
+  background: #1C2338;
   box-shadow: none;
   cursor: not-allowed;
   color: #3A5F80;
@@ -338,9 +338,19 @@
   font-weight: 500;
   padding: 6px;
   cursor: pointer;
-  font-family: inherit;
+  font-family: 'Sora', system-ui, sans-serif;
   text-align: center;
   transition: color 0.15s;
 }
 
 .skipBtn:active { color: #7A90B0; }
+
+
+.scoutDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5B8EFF;
+  flex-shrink: 0;
+}

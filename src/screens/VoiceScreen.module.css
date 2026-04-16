@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background: #ffffff;
+  background: #0A0E1A;
   min-height: 100%;
 }
 
 .statusBar {
   height: 44px;
-  background: #ffffff;
+  background: #0A0E1A;
 }
 
 /* Header */
@@ -16,11 +16,11 @@
   display: flex;
   align-items: center;
   padding: 8px 16px 14px;
-  border-bottom: 1px solid #f0f4f8;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .backBtn {
-  background: #f0f4f8;
+  background: #141928;
   border: none;
   width: 38px;
   height: 38px;
@@ -33,7 +33,7 @@
 }
 
 .backBtn:active {
-  background: #e4e9f0;
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .headerTitle {
@@ -41,7 +41,7 @@
   text-align: center;
   font-size: 17px;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #FFFFFF;
 }
 
 .headerRight {
@@ -51,9 +51,9 @@
 .timer {
   font-size: 14px;
   font-weight: 700;
-  color: #1668F5;
+  color: #5B8EFF;
   font-variant-numeric: tabular-nums;
-  background: #e8f0fe;
+  background: rgba(91, 142, 255, 0.12);
   padding: 4px 10px;
   border-radius: 20px;
 }
@@ -80,24 +80,26 @@
 .idleOrb {
   width: 90px;
   height: 90px;
-  background: linear-gradient(135deg, #1668F5, #4d8dff);
+  background: linear-gradient(135deg, #5B8EFF, #4d8dff);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1;
-  box-shadow: 0 8px 24px rgba(22, 104, 245, 0.35);
+  box-shadow: 0 8px 24px rgba(91, 142, 255, 0.35);
 }
 
 .idleIcon {
-  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .idleRing1 {
   position: absolute;
   inset: 12px;
   border-radius: 50%;
-  border: 2px solid rgba(22, 104, 245, 0.2);
+  border: 2px solid rgba(91, 142, 255, 0.2);
   animation: expandRing 2.5s ease-out infinite;
 }
 
@@ -105,7 +107,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 2px solid rgba(22, 104, 245, 0.1);
+  border: 2px solid rgba(91, 142, 255, 0.1);
   animation: expandRing 2.5s 0.8s ease-out infinite;
 }
 
@@ -117,14 +119,14 @@
 .idleTitle {
   font-size: 26px;
   font-weight: 800;
-  color: #1a1a2e;
+  color: #FFFFFF;
   margin-bottom: 10px;
   letter-spacing: -0.4px;
 }
 
 .idleSub {
   font-size: 15px;
-  color: #5f6b7a;
+  color: #8896B0;
   text-align: center;
   line-height: 1.5;
   margin-bottom: 28px;
@@ -141,19 +143,19 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  background: #f7f9fc;
-  border: 1px solid #e4e9f0;
+  background: #141928;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 7px 12px;
   font-size: 12px;
-  color: #5f6b7a;
+  color: #8896B0;
   font-weight: 500;
 }
 
 .callBtn {
   width: 100%;
   max-width: 320px;
-  background: #1668F5;
+  background: #5B8EFF;
   color: white;
   font-size: 17px;
   font-weight: 700;
@@ -163,18 +165,20 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  box-shadow: 0 4px 20px rgba(22, 104, 245, 0.4);
+  box-shadow: 0 4px 20px rgba(91, 142, 255, 0.4);
   transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
   margin-bottom: 12px;
 }
 
 .callBtn:active {
-  background: #1155d4;
+  background: #4A7AF5;
   transform: scale(0.98);
 }
 
 .callBtnIcon {
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .callDisclaimer {
@@ -207,8 +211,8 @@
   inset: 0;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #1668F5;
-  border-right-color: #1668F5;
+  border-top-color: #5B8EFF;
+  border-right-color: #5B8EFF;
   animation: spin 1s linear infinite;
 }
 
@@ -218,18 +222,21 @@
 }
 
 .connectingIcon {
-  font-size: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
 }
 
 .connectingTitle {
   font-size: 20px;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #FFFFFF;
 }
 
 .connectingSub {
   font-size: 14px;
-  color: #9ba8b5;
+  color: #5A6880;
 }
 
 /* Active */
@@ -256,35 +263,37 @@
 .avatar {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #1668F5, #4d8dff);
+  background: linear-gradient(135deg, #5B8EFF, #4d8dff);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1;
   transition: box-shadow 0.3s;
-  box-shadow: 0 6px 20px rgba(22, 104, 245, 0.3);
+  box-shadow: 0 6px 20px rgba(91, 142, 255, 0.3);
 }
 
-.avatarEmoji {
-  font-size: 32px;
+.avatarSvg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .avatarPulsing {
-  box-shadow: 0 0 0 0 rgba(22, 104, 245, 0.4);
+  box-shadow: 0 0 0 0 rgba(91, 142, 255, 0.4);
   animation: avatarPulse 1.5s infinite;
 }
 
 @keyframes avatarPulse {
-  0% { box-shadow: 0 0 0 0 rgba(22, 104, 245, 0.4); }
-  70% { box-shadow: 0 0 0 16px rgba(22, 104, 245, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(22, 104, 245, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(91, 142, 255, 0.4); }
+  70% { box-shadow: 0 0 0 16px rgba(91, 142, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(91, 142, 255, 0); }
 }
 
 .pulseRing1, .pulseRing2 {
   position: absolute;
   border-radius: 50%;
-  background: rgba(22, 104, 245, 0.08);
+  background: rgba(91, 142, 255, 0.08);
   animation: pulseExpand 2s ease-out infinite;
 }
 
@@ -372,8 +381,8 @@
 }
 
 .bubbleAi p {
-  background: #f7f9fc;
-  color: #1a1a2e;
+  background: #141928;
+  color: #FFFFFF;
   border-bottom-left-radius: 4px;
 }
 
@@ -382,7 +391,7 @@
 }
 
 .bubbleUser p {
-  background: #1668F5;
+  background: #5B8EFF;
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -390,7 +399,7 @@
 .bubbleLabel {
   font-size: 10px;
   font-weight: 700;
-  color: #9ba8b5;
+  color: #5A6880;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding-left: 4px;
@@ -426,7 +435,7 @@
 .endCallLabel {
   font-size: 12px;
   font-weight: 600;
-  color: #9ba8b5;
+  color: #5A6880;
 }
 
 /* Done screen */
@@ -434,7 +443,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background: #ffffff;
+  background: #0A0E1A;
   min-height: 100%;
 }
 
@@ -448,8 +457,14 @@
 }
 
 .doneIcon {
-  font-size: 64px;
-  margin-bottom: 16px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #5B8EFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
   animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -461,14 +476,14 @@
 .doneTitle {
   font-size: 26px;
   font-weight: 800;
-  color: #1a1a2e;
+  color: #FFFFFF;
   margin-bottom: 8px;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.1px;
 }
 
 .doneSub {
   font-size: 14px;
-  color: #5f6b7a;
+  color: #8896B0;
   margin-bottom: 28px;
 }
 
@@ -476,15 +491,18 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  background: #fff8e1;
-  border: 2px solid #f5a623;
+  background: rgba(255, 208, 0, 0.10);
+  border: 2px solid #FFD000;
   border-radius: 16px;
   padding: 18px 28px;
   margin-bottom: 24px;
 }
 
 .ptsCardIcon {
-  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .ptsCardLabel {
@@ -499,13 +517,13 @@
 .ptsCardValue {
   font-size: 28px;
   font-weight: 800;
-  color: #92600a;
+  color: #FFD000;
 }
 
 .transcriptSummary {
   width: 100%;
-  background: #f7f9fc;
-  border: 1px solid #e4e9f0;
+  background: #141928;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 14px 16px;
   margin-bottom: 28px;
@@ -515,7 +533,7 @@
 .transcriptSummaryLabel {
   font-size: 11px;
   font-weight: 700;
-  color: #9ba8b5;
+  color: #5A6880;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 6px;
@@ -523,7 +541,7 @@
 
 .transcriptSummaryText {
   font-size: 13px;
-  color: #5f6b7a;
+  color: #8896B0;
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -540,33 +558,33 @@
 
 .primaryBtn {
   width: 100%;
-  background: #1668F5;
+  background: #5B8EFF;
   color: white;
   font-size: 16px;
   font-weight: 700;
   padding: 16px;
-  border-radius: 14px;
+  border-radius: 50px;
   transition: background 0.15s, transform 0.1s;
-  box-shadow: 0 4px 16px rgba(22, 104, 245, 0.35);
+  box-shadow: 0 4px 16px rgba(91, 142, 255, 0.35);
 }
 
 .primaryBtn:active {
-  background: #1155d4;
+  background: #4A7AF5;
   transform: scale(0.98);
 }
 
 .secondaryBtn {
   width: 100%;
-  background: #f7f9fc;
-  color: #1668F5;
+  background: #141928;
+  color: #5B8EFF;
   font-size: 15px;
   font-weight: 600;
   padding: 14px;
-  border-radius: 14px;
-  border: 1.5px solid #e4e9f0;
+  border-radius: 50px;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
   transition: background 0.15s;
 }
 
 .secondaryBtn:active {
-  background: #e8f0fe;
+  background: rgba(91, 142, 255, 0.12);
 }
