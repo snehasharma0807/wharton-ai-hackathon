@@ -24,7 +24,9 @@ export default function PointsAwardedScreen() {
         {/* Points earned card */}
         <div className={styles.ptsCard}>
           <div className={styles.ptsCardRow}>
-            <span className={styles.ptsCardMedal}>🏅</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L14.4 8.3L21 8.9L16.2 13.1L17.8 19.5L12 16.3L6.2 19.5L7.8 13.1L3 8.9L9.6 8.3L12 2Z" fill="#FFD000" stroke="#FFD000" strokeWidth="0.6" strokeLinejoin="round"/>
+            </svg>
             <div>
               <div className={styles.ptsCardLabel}>Points earned</div>
               <div className={styles.ptsCardValue}>+100 pts</div>
@@ -36,7 +38,7 @@ export default function PointsAwardedScreen() {
         {/* Scout CTA — exciting, not obligatory */}
         <div className={styles.scoutCard}>
           <div className={styles.scoutCardTop}>
-            <span className={styles.scoutLabel}>● SCOUT</span>
+            <span className={styles.scoutLabel}><span className={styles.scoutDot} />SCOUT</span>
             <span className={styles.scoutPtsPill}>Up to +175 more pts</span>
           </div>
           <h3 className={styles.scoutCardTitle}>You could be a Scout Pioneer</h3>

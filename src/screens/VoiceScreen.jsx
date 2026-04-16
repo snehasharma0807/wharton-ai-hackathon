@@ -83,7 +83,7 @@ export default function VoiceScreen() {
       <header className={styles.header}>
         <button className={styles.backBtn} onClick={() => navigate(-1)} aria-label="Back">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <path d="M14 17L8 11L14 5" stroke="#1668F5" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M14 17L8 11L14 5" stroke="#5B8EFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
         <h2 className={styles.headerTitle}>Voice Review</h2>
@@ -118,7 +118,11 @@ function IdleView({ startCall }) {
     <div className={styles.idleContent}>
       <div className={styles.idleIllustration}>
         <div className={styles.idleOrb}>
-          <span className={styles.idleIcon}>🎙️</span>
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <rect x="13" y="4" width="10" height="18" rx="5" stroke="white" strokeWidth="2"/>
+            <path d="M7 18C7 24.075 11.925 29 18 29C24.075 29 29 24.075 29 18" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+            <path d="M18 29V33M14 33H22" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
         </div>
         <div className={styles.idleRing1} />
         <div className={styles.idleRing2} />
@@ -131,21 +135,32 @@ function IdleView({ startCall }) {
 
       <div className={styles.idleFeatures}>
         <div className={styles.idleFeature}>
-          <span>⏱️</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="6.5" stroke="#8896B0" strokeWidth="1.4"/>
+            <path d="M8 5V8.5L10 10" stroke="#8896B0" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
           <span>~2 minutes</span>
         </div>
         <div className={styles.idleFeature}>
-          <span>🏅</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1L9.8 5.4L14.5 5.9L11 9L12.1 13.5L8 11.1L3.9 13.5L5 9L1.5 5.9L6.2 5.4L8 1Z" fill="#FFD000" strokeWidth="0.5" stroke="#FFD000"/>
+          </svg>
           <span>Earn 100 pts</span>
         </div>
         <div className={styles.idleFeature}>
-          <span>🔒</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="3" y="7" width="10" height="8" rx="1.5" stroke="#8896B0" strokeWidth="1.4"/>
+            <path d="M5 7V5C5 3.34 6.34 2 8 2C9.66 2 11 3.34 11 5V7" stroke="#8896B0" strokeWidth="1.4" strokeLinecap="round"/>
+            <circle cx="8" cy="11" r="1" fill="#8896B0"/>
+          </svg>
           <span>Private & secure</span>
         </div>
       </div>
 
       <button className={styles.callBtn} onClick={startCall}>
-        <span className={styles.callBtnIcon}>📞</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M5.5 8.7C6.2 10.3 7.7 11.7 9.5 12.5L10.9 11.1C11.1 10.9 11.4 10.8 11.7 10.9C12.5 11.2 13.4 11.3 14.3 11.3C14.7 11.3 15 11.6 15 12V14.5C15 14.9 14.7 15.2 14.3 15.2C8.3 15.2 3.5 10.4 3.5 4.4C3.5 4 3.8 3.7 4.2 3.7H6.7C7.1 3.7 7.4 4 7.4 4.4C7.4 5.3 7.5 6.2 7.8 7C7.9 7.3 7.8 7.6 7.6 7.8L5.5 8.7Z" fill="white"/>
+        </svg>
         Start Voice Review
       </button>
       <p className={styles.callDisclaimer}>By continuing, you consent to AI voice processing</p>
@@ -158,7 +173,11 @@ function ConnectingView() {
     <div className={styles.connectingContent}>
       <div className={styles.connectingOrb}>
         <div className={styles.connectingSpinner} />
-        <span className={styles.connectingIcon}>🎙️</span>
+        <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
+          <rect x="13" y="4" width="10" height="18" rx="5" stroke="white" strokeWidth="2"/>
+          <path d="M7 18C7 24.075 11.925 29 18 29C24.075 29 29 24.075 29 18" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M18 29V33M14 33H22" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
       </div>
       <h3 className={styles.connectingTitle}>Connecting…</h3>
       <p className={styles.connectingSub}>Starting your AI review session</p>
@@ -172,7 +191,13 @@ function ActiveView({ transcript, transcriptRef, pulsing, endCall }) {
       {/* AI avatar */}
       <div className={styles.avatarWrap}>
         <div className={`${styles.avatar} ${pulsing ? styles.avatarPulsing : ''}`}>
-          <span className={styles.avatarEmoji}>🤖</span>
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="8" y="4" width="16" height="12" rx="4" stroke="white" strokeWidth="1.8"/>
+            <circle cx="12" cy="10" r="2" fill="white"/>
+            <circle cx="20" cy="10" r="2" fill="white"/>
+            <path d="M6 20C6 17.8 7.8 16 10 16H22C24.2 16 26 17.8 26 20V26C26 27.1 25.1 28 24 28H8C6.9 28 6 27.1 6 26V20Z" stroke="white" strokeWidth="1.8"/>
+            <path d="M12 22H20M14 25H18" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
         </div>
         {pulsing && (
           <>
@@ -220,12 +245,18 @@ function DoneScreen({ navigate, transcript }) {
     <div className={styles.doneScreen}>
       <div className={styles.statusBar} />
       <div className={styles.doneContent}>
-        <div className={styles.doneIcon}>✅</div>
+        <div className={styles.doneIcon}>
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <path d="M9 18L15.5 24.5L27 12" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
         <h2 className={styles.doneTitle}>Call Complete!</h2>
         <p className={styles.doneSub}>Great conversation — your review has been saved</p>
 
         <div className={styles.ptsCard}>
-          <span className={styles.ptsCardIcon}>🏅</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 1L12.2 6.4L18 6.9L13.8 10.6L15.1 16.3L10 13.3L4.9 16.3L6.2 10.6L2 6.9L7.8 6.4L10 1Z" fill="#FFD000" stroke="#FFD000" strokeWidth="0.5" strokeLinejoin="round"/>
+          </svg>
           <div>
             <div className={styles.ptsCardLabel}>Points earned</div>
             <div className={styles.ptsCardValue}>+100 pts</div>

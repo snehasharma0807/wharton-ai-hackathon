@@ -51,7 +51,10 @@ export default function PayoffScreen() {
           <div className={styles.summaryList}>
             {completedCategories.map((cat, i) => (
               <div key={i} className={styles.summaryRow}>
-                <span className={styles.summaryEmoji}>{cat.icon}</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="6.5" stroke="#5B8EFF" strokeWidth="1.2"/>
+                  <path d="M4.5 7L6.2 8.7L9.5 5.3" stroke="#5B8EFF" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
                 <span className={styles.summaryText}>{getSummary(cat)}</span>
               </div>
             ))}
@@ -64,13 +67,13 @@ export default function PayoffScreen() {
           <div className={styles.ptsRows}>
             {completedCategories.map((cat, i) => (
               <div key={i} className={styles.ptsRow}>
-                <span className={styles.ptsRowLabel}>{cat.icon} {cat.label}</span>
+                <span className={styles.ptsRowLabel}>{cat.label}</span>
                 <span className={styles.ptsRowVal}>+50 pts</span>
               </div>
             ))}
             {pioneerBonus > 0 && (
               <div className={`${styles.ptsRow} ${styles.ptsRowBonus}`}>
-                <span className={styles.ptsRowLabel}>🏆 Pioneer bonus</span>
+                <span className={styles.ptsRowLabel}>Pioneer bonus</span>
                 <span className={styles.ptsRowVal}>+25 pts</span>
               </div>
             )}

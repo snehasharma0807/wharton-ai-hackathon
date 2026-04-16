@@ -3,34 +3,90 @@
   min-height: 100dvh;
   display: flex;
   justify-content: center;
-  padding: 0;
-  background: #f0f4f8;
+  background: #000;
 }
 
 .device {
   width: 100%;
   max-width: 430px;
   min-height: 100dvh;
-  background: #ffffff;
+  background: var(--bg);
   position: relative;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Bottom nav */
+.bottomNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 10px 0 env(safe-area-inset-bottom, 10px);
+  flex-shrink: 0;
+}
+
+.navTab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 4px 16px;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.15s;
+}
+
+.navTabActive {
+  opacity: 1;
+}
+
+.navTab:active {
+  opacity: 0.7;
+}
+
+.navIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+}
+
+.navLabel {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-1);
+  letter-spacing: 0.1px;
 }
 
 @media (min-width: 431px) {
   .shell {
     align-items: flex-start;
-    padding: 32px 0 64px;
+    padding: 40px 0 80px;
+    background: #050505;
   }
 
   .device {
     min-height: auto;
-    border-radius: 40px;
-    box-shadow:
-      0 0 0 10px #1a1a2e,
-      0 40px 80px rgba(0, 0, 0, 0.35),
-      0 20px 40px rgba(0, 0, 0, 0.2);
+    height: 812px;
+    border-radius: 4px;
+    border: 1px solid #222;
     overflow: hidden;
+  }
+
+  .content {
+    flex: 1;
+    overflow-y: auto;
   }
 }

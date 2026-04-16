@@ -2,183 +2,152 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background: #ffffff;
+  background: var(--bg);
   min-height: 100%;
 }
 
-.statusBar {
-  height: 44px;
-  background: #ffffff;
-  border-bottom: 1px solid transparent;
-}
+.statusBar { height: 44px; }
 
 /* Header */
 .header {
   display: flex;
   align-items: center;
-  padding: 8px 16px 12px;
-  background: #ffffff;
-  border-bottom: 1px solid #f0f4f8;
+  padding: var(--s2) var(--s5) var(--s3);
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 10;
+  background: var(--bg);
 }
 
 .backBtn {
-  background: #f0f4f8;
-  border: none;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
+  background: none;
+  border: 1px solid var(--border);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-md);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: background 0.15s;
+  transition: border-color 0.15s;
 }
-
-.backBtn:active {
-  background: #e4e9f0;
-}
+.backBtn:active { border-color: var(--text-3); }
 
 .headerTitle {
   flex: 1;
   text-align: center;
-  font-size: 17px;
-  font-weight: 700;
-  color: #1a1a2e;
-  letter-spacing: -0.2px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
 }
 
-.headerRight {
-  width: 38px;
-}
+.headerRight { width: 32px; }
 
-/* Content */
-.scrollable {
-  flex: 1;
-  overflow-y: auto;
-  padding-bottom: 32px;
-}
+.scrollable { flex: 1; overflow-y: auto; }
 
-/* Hotel chip */
+/* Hotel row — just text */
 .hotelChip {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin: 16px 20px;
-  background: #f7f9fc;
-  border: 1px solid #e4e9f0;
-  border-radius: 12px;
-  padding: 12px 14px;
+  gap: var(--s3);
+  padding: var(--s5) var(--s6) var(--s5);
+  border-bottom: 1px solid var(--border);
 }
 
 .hotelChipIcon {
-  font-size: 24px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--text-3);
 }
 
 .hotelChipInfo {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--s1);
   min-width: 0;
 }
 
 .hotelChipName {
   font-size: 13px;
-  font-weight: 600;
-  color: #1a1a2e;
+  font-weight: 400;
+  color: var(--text-2);
   line-height: 1.3;
 }
 
-/* Section */
-.section {
-  padding: 0 20px 20px;
-}
+/* Sections */
+.section { padding: var(--s6) var(--s6) 0; }
 
 .sectionLabel {
   font-size: 20px;
-  font-weight: 800;
-  color: #1a1a2e;
-  margin-bottom: 18px;
-  letter-spacing: -0.3px;
+  font-weight: 700;
+  color: var(--text-1);
+  margin-bottom: var(--s6);
+  letter-spacing: -0.4px;
+  line-height: 1.2;
 }
 
-/* Stars */
 .starsRow {
   display: flex;
   justify-content: center;
-  padding: 8px 0 16px;
+  padding: 0 0 var(--s5);
 }
 
 .ratingLabel {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: 4px;
   animation: fadeIn 0.2s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(3px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.ratingEmoji {
-  font-size: 22px;
-}
-
 .ratingText {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1a1a2e;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-2);
+  letter-spacing: 0.2px;
 }
 
-/* Textarea */
+/* Textarea — bottom line only */
 .inputLabel {
   display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #1a1a2e;
-  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-3);
+  margin-bottom: var(--s3);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
 }
 
-.optional {
-  font-weight: 400;
-  color: #9ba8b5;
-}
+.optional { font-weight: 400; color: var(--text-3); }
 
 .textarea {
   width: 100%;
-  border: 1.5px solid #e4e9f0;
-  border-radius: 12px;
-  padding: 12px 14px;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: var(--s2) 0 var(--s3);
   font-size: 14px;
-  color: #1a1a2e;
+  color: var(--text-1);
   resize: none;
-  line-height: 1.55;
-  background: #fafbfd;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  line-height: 1.65;
+  background: transparent;
+  transition: border-color 0.15s;
   outline: none;
 }
 
-.textarea:focus {
-  border-color: #1668F5;
-  background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(22, 104, 245, 0.1);
-}
-
-.textarea::placeholder {
-  color: #c0c8d2;
-}
+.textarea:focus { border-color: var(--accent); }
+.textarea::placeholder { color: var(--text-3); }
 
 .charCount {
   text-align: right;
-  font-size: 11px;
-  color: #9ba8b5;
-  margin-top: 6px;
+  font-size: 10px;
+  color: var(--text-3);
+  margin-top: var(--s2);
   font-variant-numeric: tabular-nums;
 }
 
@@ -186,140 +155,106 @@
 .divider {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 0 20px 20px;
+  gap: var(--s4);
+  padding: var(--s8) var(--s6);
 }
 
-.dividerLine {
-  flex: 1;
-  height: 1px;
-  background: #e4e9f0;
-}
+.dividerLine { flex: 1; height: 1px; background: var(--border); }
 
 .dividerText {
-  font-size: 11.5px;
-  color: #9ba8b5;
-  font-weight: 500;
+  font-size: 10px;
+  color: var(--text-3);
   text-align: center;
-  max-width: 180px;
-  line-height: 1.4;
+  max-width: 140px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Mode cards */
 .modeGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: var(--s3);
+  margin-bottom: var(--s5);
 }
 
 .modeCard {
-  background: #ffffff;
-  border: 1.5px solid #e4e9f0;
-  border-radius: 16px;
-  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s4) var(--s4) var(--s8);
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--s1);
   position: relative;
   cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+  transition: border-color 0.15s, transform 0.1s;
 }
 
-.modeCard:active {
-  transform: scale(0.97);
-  box-shadow: 0 2px 8px rgba(22, 104, 245, 0.12);
-}
+.modeCardVoice { background: var(--surface); }
 
-.modeCardText:hover,
-.modeCardText:focus-visible {
-  border-color: #1668F5;
-  box-shadow: 0 4px 16px rgba(22, 104, 245, 0.12);
-}
-
-.modeCardVoice:hover,
-.modeCardVoice:focus-visible {
-  border-color: #1668F5;
-  box-shadow: 0 4px 16px rgba(22, 104, 245, 0.12);
-}
+.modeCard:active { transform: scale(0.98); }
+.modeCard:hover { border-color: var(--text-3); }
 
 .modeCardHeader {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 4px;
+  margin-bottom: var(--s3);
 }
 
-.modeCardEmoji {
-  font-size: 26px;
-  line-height: 1;
-}
+.modeCardIcon { display: flex; align-items: center; color: var(--text-2); }
 
 .ptsChip {
-  background: #fff8e1;
-  border: 1px solid #f5d78a;
-  color: #92600a;
-  font-size: 9.5px;
-  font-weight: 700;
-  padding: 3px 7px;
-  border-radius: 20px;
-  white-space: nowrap;
-  line-height: 1.3;
+  color: var(--gold);
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px var(--s2);
+  border-radius: var(--r-sm);
+  background: rgba(232, 184, 75, 0.08);
+  letter-spacing: 0.3px;
 }
 
 .modeCardTitle {
-  font-size: 16px;
-  font-weight: 800;
-  color: #1a1a2e;
-  letter-spacing: -0.2px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-1);
+  letter-spacing: -0.1px;
 }
 
 .modeCardDesc {
-  font-size: 12px;
-  color: #5f6b7a;
-  font-weight: 400;
-  line-height: 1.4;
-}
-
-.modeCardFeatures {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  margin-top: 4px;
-}
-
-.modeCardFeatures span {
   font-size: 11px;
-  color: #9ba8b5;
-  font-weight: 500;
-}
-
-.modeCardArrow {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 28px;
-  height: 28px;
-  background: #e8f0fe;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Footnote */
-.footnote {
-  font-size: 12px;
-  color: #9ba8b5;
-  text-align: center;
+  color: var(--text-2);
+  font-weight: 400;
   line-height: 1.5;
 }
 
-.footnote strong {
-  color: #92600a;
+.modeCardFeatures { display: none; }
+
+.modeCardArrow {
+  position: absolute;
+  bottom: var(--s3);
+  right: var(--s3);
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-2);
 }
 
-.bottomPad {
-  height: 24px;
+.footnote {
+  font-size: 11px;
+  color: var(--text-3);
+  text-align: center;
+  line-height: 1.6;
+  padding-bottom: var(--s2);
 }
+
+.footnote strong { color: var(--text-2); font-weight: 500; }
+
+.bottomPad { height: var(--s8); }
