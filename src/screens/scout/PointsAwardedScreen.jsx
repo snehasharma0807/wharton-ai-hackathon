@@ -1,8 +1,25 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { submitReview } from '../../utils/api'
 import styles from './PointsAwardedScreen.module.css'
 
 export default function PointsAwardedScreen() {
   const navigate = useNavigate()
+  const { state = {} } = useLocation()
+  const { reviewText = '', sessionId = '' } = state
+
+  function handlePlayScout() {
+    navigate('/review/text/topics', { state: { reviewText, sessionId } })
+  }
+
+  async function handleDone() {
+    // User is skipping the game — save the review now before leaving
+    try {
+      await submitReview({ sessionId, reviewText, completedCats: [] })
+    } catch {
+      // Fire-and-forget for demo; don't block navigation on a network error
+    }
+    navigate('/')
+  }
 
   return (
     <div className={styles.screen}>
@@ -33,7 +50,7 @@ export default function PointsAwardedScreen() {
           <div className={styles.ptsCardNote}>Added to your Expedia Rewards balance</div>
         </div>
 
-        {/* Scout CTA — exciting, not obligatory */}
+        {/* Scout CTA */}
         <div className={styles.scoutCard}>
           <div className={styles.scoutCardTop}>
             <span className={styles.scoutLabel}>● SCOUT</span>
@@ -43,10 +60,7 @@ export default function PointsAwardedScreen() {
           <p className={styles.scoutCardDesc}>
             Answer 1–2 quick questions about things other travelers can't find info on. Takes under 60 seconds per topic.
           </p>
-          <button
-            className={styles.scoutBtn}
-            onClick={() => navigate('/review/text/topics')}
-          >
+          <button className={styles.scoutBtn} onClick={handlePlayScout}>
             Play Scout Game
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3.5 8H12.5M12.5 8L9 4.5M12.5 8L9 11.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -54,7 +68,7 @@ export default function PointsAwardedScreen() {
           </button>
         </div>
 
-        <button className={styles.skipBtn} onClick={() => navigate('/')}>
+        <button className={styles.skipBtn} onClick={handleDone}>
           No thanks, I'm done
         </button>
       </div>

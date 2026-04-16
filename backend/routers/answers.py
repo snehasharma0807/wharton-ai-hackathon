@@ -25,6 +25,7 @@ class SubmitAnswersRequest(BaseModel):
     propertyId: str
     inputMode: str = "text"          # "text" or "voice"
     starRating: Optional[int] = None
+    reviewText: Optional[str] = None
     answers: list[AnswerItem]
 
 
@@ -95,6 +96,7 @@ async def submit_answers(body: SubmitAnswersRequest, background_tasks: Backgroun
             "property_id": body.propertyId,
             "input_mode":  body.inputMode,
             "star_rating": body.starRating,
+            "review_text": body.reviewText,
         }).execute()
 
         # 2. Insert one row per answer
