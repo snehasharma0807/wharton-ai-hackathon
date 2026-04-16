@@ -10,7 +10,7 @@
   padding: 2px;
   line-height: 1;
   transition: transform 0.12s ease, color 0.1s ease;
-  color: #dde3ea;
+  color: #cbd5e1;
   cursor: pointer;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .star.filled {
-  color: #FFD000;
+  color: #ca8a04;
 }
 
 .star:disabled {

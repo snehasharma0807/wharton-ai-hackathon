@@ -137,14 +137,14 @@
   color: white;
   font-size: 14px;
   font-weight: 600;
-  padding: 15px;
+  padding: 12px 15px;
   border-radius: var(--r-md);
   border: none;
   cursor: pointer;
-  transition: opacity 0.15s, transform 0.1s;
+  transition: opacity 0.15s;
 }
 
-.reviewBtn:active { opacity: 0.85; transform: scale(0.99); }
+.reviewBtn:active { opacity: 0.9; }
 
 .doneBtn {
   background: none;

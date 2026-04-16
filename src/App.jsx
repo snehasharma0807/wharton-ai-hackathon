@@ -9,6 +9,7 @@ import PointsAwardedScreen from './screens/scout/PointsAwardedScreen'
 import TopicPickerScreen from './screens/scout/TopicPickerScreen'
 import QuestionScreen from './screens/scout/QuestionScreen'
 import PayoffScreen from './screens/scout/PayoffScreen'
+import HotelReviewsPage from './screens/HotelReviewsPage'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/review/text" element={<TextReviewFlow />} />
           <Route path="/review/voice" element={<VoiceScreen />} />
           <Route path="/dashboard" element={<OwnerDashboard />} />
+          <Route path="/hotel/reviews" element={<HotelReviewsPage />} />
           {/* Scout game flow */}
           <Route path="/review/text/points" element={<PointsAwardedScreen />} />
           <Route path="/review/text/topics" element={<TopicPickerScreen />} />

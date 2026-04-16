@@ -89,60 +89,56 @@ export default function ReviewLandingScreen() {
           <div className={styles.dividerLine} />
         </div>
 
-        {/* Mode selection */}
+        {/* Mode selection — list rows */}
         <section className={styles.section}>
-          <div className={styles.modeGrid}>
-            {/* Text card */}
+          <div className={styles.modeList}>
             <button
-              className={`${styles.modeCard} ${styles.modeCardText}`}
+              type="button"
+              className={styles.modeRow}
               onClick={() => handleModeSelect('text')}
             >
-              <div className={styles.modeCardHeader}>
-                <span className={styles.modeCardIcon}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 2H4C2.9 2 2 2.9 2 4V16C2 17.1 2.9 18 4 18H8L12 22L16 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" stroke="#5B8EFF" strokeWidth="1.6" strokeLinejoin="round"/>
-                    <path d="M7 8H17M7 12H13" stroke="#5B8EFF" strokeWidth="1.6" strokeLinecap="round"/>
-                  </svg>
-                </span>
-                <span className={styles.ptsChip}>+50 pts</span>
-              </div>
-              <h4 className={styles.modeCardTitle}>Text</h4>
-              <p className={styles.modeCardDesc}>Answer at your own pace</p>
-              <div className={styles.modeCardFeatures}>
-                <span>Type when ready</span>
-                <span>Edit before sending</span>
-              </div>
-              <div className={styles.modeCardArrow}>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M3.75 9H14.25M14.25 9L9.75 4.5M14.25 9L9.75 13.5" stroke="#5B8EFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <span className={styles.modeRowIcon} aria-hidden>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 2H4C2.9 2 2 2.9 2 4V16C2 17.1 2.9 18 4 18H8L12 22L16 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                  <path d="M7 8H17M7 12H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
+              </span>
+              <div className={styles.modeRowMain}>
+                <div className={styles.modeRowTop}>
+                  <span className={styles.modeRowTitle}>Text review</span>
+                  <span className={styles.ptsChip}>+50 pts</span>
+                </div>
+                <p className={styles.modeRowDesc}>Answer at your own pace · edit before sending</p>
               </div>
+              <span className={styles.modeRowChevron} aria-hidden>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <path d="M6.75 4.5L11.25 9L6.75 13.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
             </button>
 
-            {/* Voice card */}
             <button
-              className={`${styles.modeCard} ${styles.modeCardVoice}`}
+              type="button"
+              className={styles.modeRow}
               onClick={() => handleModeSelect('voice')}
             >
-              <div className={styles.modeCardHeader}>
-                <span className={styles.modeCardIcon}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M6.6 10.8C7.4 12.4 8.8 13.7 10.5 14.5L11.9 13.1C12.1 12.9 12.4 12.8 12.6 12.9C13.4 13.2 14.3 13.3 15.2 13.3C15.6 13.3 16 13.7 16 14.1V16.5C16 16.9 15.6 17.3 15.2 17.3C9 17.3 4 12.3 4 6.1C4 5.7 4.4 5.3 4.8 5.3H7.2C7.6 5.3 8 5.7 8 6.1C8 7 8.1 7.9 8.4 8.7C8.5 9 8.4 9.3 8.2 9.5L6.6 10.8Z" stroke="#5B8EFF" strokeWidth="1.6" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-                <span className={styles.ptsChip}>+50 pts</span>
-              </div>
-              <h4 className={styles.modeCardTitle}>Voice Call</h4>
-              <p className={styles.modeCardDesc}>Talk to our AI in ~2 min</p>
-              <div className={styles.modeCardFeatures}>
-                <span>Hands-free</span>
-                <span>Conversational</span>
-              </div>
-              <div className={styles.modeCardArrow}>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M3.75 9H14.25M14.25 9L9.75 4.5M14.25 9L9.75 13.5" stroke="#5B8EFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <span className={styles.modeRowIcon} aria-hidden>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path d="M6.6 10.8C7.4 12.4 8.8 13.7 10.5 14.5L11.9 13.1C12.1 12.9 12.4 12.8 12.6 12.9C13.4 13.2 14.3 13.3 15.2 13.3C15.6 13.3 16 13.7 16 14.1V16.5C16 16.9 15.6 17.3 15.2 17.3C9 17.3 4 12.3 4 6.1C4 5.7 4.4 5.3 4.8 5.3H7.2C7.6 5.3 8 5.7 8 6.1C8 7 8.1 7.9 8.4 8.7C8.5 9 8.4 9.3 8.2 9.5L6.6 10.8Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
                 </svg>
+              </span>
+              <div className={styles.modeRowMain}>
+                <div className={styles.modeRowTop}>
+                  <span className={styles.modeRowTitle}>Voice call</span>
+                  <span className={styles.ptsChip}>+50 pts</span>
+                </div>
+                <p className={styles.modeRowDesc}>Guided questions · about 2 minutes</p>
               </div>
+              <span className={styles.modeRowChevron} aria-hidden>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <path d="M6.75 4.5L11.25 9L6.75 13.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
             </button>
           </div>
 
